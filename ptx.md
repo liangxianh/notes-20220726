@@ -69,8 +69,74 @@ git push -u origin master
 1. .gitignore只能忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的。
 2. 想要.gitignore起作用，必须要在这些文件不在暂存区中才可以，.gitignore文件只是忽略没有被staged(cached)文件， 对于已经被staged文件，加入ignore文件时一定要先从staged移除，才可以忽略。
 
+### 6 常见的在文本框内插入其他文本功能
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>练习 在input[type="textarea"]中获取光标位置并插入文本指定的文本内容</title>
+</head>
+<body>
+  <div class="contentmenu-container">
+    练习在input[type="textarea"]中获取光标位置并插入文本指定的文本内容
+    <textarea id="textarea" name="tarea" placeholder="请输入文字" rows="" cols="" >
+    </textarea>
+    <button id='insert'>插入</button>
+  </div>
+  <script>
+    var textareaEle = document.querySelector('#textarea')
+    var insertEle = document.querySelector('#insert')
+    textareaEle.addEventListener('select',function () {
+        message.setCaret(this);
+    })
+    textareaEle.addEventListener('click',function () {
+        message.setCaret(this);
+    })
+    textareaEle.addEventListener('keyup',function () {
+        message.setCaret(this);
+    });
 
+    insertEle.addEventListener('click',function () {
+        var textareaStr = textareaEle.innerHTML;
+        message.insertAtCaret(textareaEle,'fgsfg fgsdfg fgsfg');
+    });
 
+    var message = {
+      setCaret: function (textObj) {
+        if (textObj.createTextRange) {
+          textObj.caretPos = document.selection.createRange().duplicate();
+        }
+      },
+      insertAtCaret: function (textObj, textFeildValue) {
+        if (document.all) {
+          console.log('caretPos', textObj.caretPos)
+          if (textObj.createTextRange && textObj.caretPos) {
+              var caretPos = textObj.caretPos;
+              caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? textFeildValue + ' ' : textFeildValue;
+            } else {
+              textObj.value = textFeildValue;
+            }
+          } else {
+            if (textObj.setSelectionRange) {
+              var rangeStart = textObj.selectionStart;
+              var rangeEnd = textObj.selectionEnd;
+              console.log(rangeStart, rangeEnd)
+              var tempStr1 = textObj.value.substring(0, rangeStart);
+              var tempStr2 = textObj.value.substring(rangeEnd);
+              textObj.value = tempStr1 + textFeildValue + tempStr2;
+            } else {
+              alert("This version of Mozilla based browser does not support setSelectionRange");
+            }
+        }
+      }
+    }
+  </script>
+</body>
+</html>
+```
 
 
 
