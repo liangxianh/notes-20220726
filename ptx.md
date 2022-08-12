@@ -45,10 +45,12 @@ error Missing file extension for "@/api/*" import/extensions
 解决方法,在config增加如下配置：
 
 ```
+const PATH = require('path');
+
 configureWebpack: {
 resolve: {
   alias: {
-    "@": path.resolve(__dirname, './src')
+    "@": PATH.resolve(__dirname, './src')
   },
   extensions: ['.js', '.vue', '.json']
 },
@@ -146,11 +148,27 @@ EACCES: permission denied, unlink '/usr/local/bin/code'
 
 
 
+### 8 node 新电脑重新下载项目进行 npm install 时报错（node 版本造成的）
+```
+Cannot read properties of null (reading 'pickAlgorithm')
+```
+找到想要的方法说 删除package-lock.js里面的部分内容，但是删除后就报错如下：
+```
+npm ERR! code ERR_SOCKET_TIMEOUT
+npm ERR! network Socket timeout
+npm ERR! network This is a problem related to network connectivity.
+npm ERR! network In most cases you are behind a proxy or have bad network settings.
+npm ERR! network 
+npm ERR! network If you are behind a proxy, please make sure that the
+npm ERR! network 'proxy' config is set properly.  See: 'npm help config'
+
+npm ERR! A complete log of this run can be found in:
+****
+```
 
 
-
-
-
+[参考博文]https://blog.csdn.net/weixin_43865196/article/details/125254459
+[2](https://juejin.cn/post/6844903794120065032)
 
 
 
