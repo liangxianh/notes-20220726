@@ -171,16 +171,59 @@ npm ERR! A complete log of this run can be found in:
 [2](https://juejin.cn/post/6844903794120065032)
 
 
+### 7 nvm 用于管理node 版本 
+```
+nvm install 12.20.0    比如安装12.20.0版本
+nvu use 12.20.0
+
+yarn  npm i yarn -g
+yarn 相当于npm run的命令 
+
+
+open . 打开当前目录
+
+vi .zshrc. 编辑文件
+source  .zshrc 运行一下文件
+
+
+```
+[参考文档1](https://www.jianshu.com/p/23775773b9d3?u_atoken=3c908cfc-0e1e-4059-b4fa-f95f1cfc1b91&u_asession=010UUUHpwbPb_ds7-E_H0Hui8GgYefpzGqgidJ4W0g5lFjDZ0XfqVexV1Th4fSupYbX0KNBwm7Lovlpxjd_P_q4JsKWYrT3W_NKPr8w6oU7K8TS2tIajr6C19emNs8t7VO4hmsJyv-1hubKihelhNJtGBkFo3NEHBv0PZUm6pbxQU&u_asig=05rxG5icSKLUFI70pJ_684hy08xbLSKzU5EUCDR5lqua2QqIykNodv4o8oFDoJb-SjUYzaeHTsNBcvDZjzvLCmrUw45l5XrG2VUDB76USyRAjDSba6Ev6H42HEInbckX68L_QzQOib4XWSmSFcwv-ZCw2YqiW9QMinlXpbIAEQzs79JS7q8ZD7Xtz2Ly-b0kmuyAKRFSVJkkdwVUnyHAIJzQXRkp3IBgq5KumN-vrgDoND0bST_iIJ5aqQPwpqol-M6vxqedUl-eZLCupCM_ImYu3h9VXwMyh6PgyDIVSG1W-Ju0OVKzP8mjRuJ7kYxdovMCiaxWNGs0SKRybKdVaVoenkgbGgHpPNQ4X84WCP2Y5BJFY80Xd36nlD_tkpDHUcmWspDxyAEEo4kbsryBKb9Q&u_aref=OuqFJ4Q4Ngd8wP59BmnW43sBHRE%3D)
+[参考文档2](https://github.com/nvm-sh/nvm)
 
 
 
+### 8  elementui 设置default-time 无效 
+查找说是需要设置
 
 
+### 9 
+```
+Missing file extension "vue" for
 
 
+   "import/extensions": ["error", "always", {
+      "js": "never",
+      "vue": "never"
+    }]
+    
+    
+    "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["@", "./src"]
+        ],
+        "extensions": [".vue", ".json", ".js"]
+      }
+    }
+  }
+  
+  
+之后报错变为Unexpected use of file extension "vue" for
 
 
-
+```
+[extension相关文档](https://stackoverflow.com/questions/58671448/how-to-force-vue-extension-in-all-imports-using-eslint)
 
 
 
