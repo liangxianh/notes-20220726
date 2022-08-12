@@ -138,6 +138,29 @@ git push -u origin master
 </html>
 ```
 
+### 7 vscode  shift+command+空格 安装code 已成功 再次重新开机失败了，报错如下：
+```
+EACCES: permission denied, unlink '/usr/local/bin/code'
+```
+没有找到具体的原因，但是可以通过先 uninstall 后在重新安装来解决
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
