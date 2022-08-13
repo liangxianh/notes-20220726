@@ -196,7 +196,7 @@ source  .zshrc 运行一下文件
 查找说是需要设置
 
 
-### 9 
+### 9 项目目录报错如下，类似问题4但是加上问题4的解决方案后仍然无效；
 ```
 Missing file extension "vue" for
 
@@ -207,7 +207,7 @@ Missing file extension "vue" for
     }]
     
     
-    "settings": {
+   "settings": {
     "import/resolver": {
       "alias": {
         "map": [
@@ -220,13 +220,48 @@ Missing file extension "vue" for
   
   
 之后报错变为Unexpected use of file extension "vue" for
-
-
+最后将eslint改写为如下内容：
+"rules": {
+  "import/extensions": ["warn", "always", {
+    "js": "never",
+    "vue": "never"
+  }]
+}
+  // "settings": {
+  //   "import/resolver": {
+  //     "alias": {
+  //       "map": [
+  //         ["@", "./src"]
+  //       ],
+  //       "extensions": [".vue", ".json", ".js"]
+  //     }
+  //   }
+  // }
+  在重新运行是可以了的
 ```
 [extension相关文档](https://stackoverflow.com/questions/58671448/how-to-force-vue-extension-in-all-imports-using-eslint)
+[VUE-CLI3解决Missing file extension "vue" for "xxxx" (import/extensions)](https://www.jianshu.com/p/fe96234d01cc)
 
 
 
+10 vue 报错如下
+```
+          <el-date-picker
+            v-model="dateTime"
+            type="daterange"
+            :picker-options="pickerOptions"
+            :range-separator="$t('common.to')"
+            :start-placeholder="$t('order.startTime')"
+            :end-placeholder="$t('order.endTime')"
+            value-format="timestamp"
+            :default-time="['00:00:00', '23:59:59']"
+            align="right" />
+            
+vue.js?ba4c:5062 [Vue warn]: Avoid mutating a prop directly since the value will be overwritten whenever the parent component re-renders. Instead, use a data or computed property based on the prop's value. Prop being mutated: "placement"
+found in
+---> <ElDatePicker>
+
+```
 
 
 
