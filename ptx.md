@@ -244,7 +244,7 @@ Missing file extension "vue" for
 
 
 
-10 vue 报错如下
+### 10 vue 报错如下
 ```
           <el-date-picker
             v-model="dateTime"
@@ -262,6 +262,32 @@ found in
 ---> <ElDatePicker>
 
 ```
+
+
+### 11 eslint语法检测中若有包引入顺序问题相关的报错 会导致code ELIFECYCLE；
+```
+09:25:57   ERROR  Failed to compile with 1 error上午1:25:56
+09:25:57   error  in ./src/components/layout/TagsView.vue
+09:25:57  Module Error (from ./node_modules/eslint-loader/index.js):
+09:25:57  /data/jenkins/workspace/*/src/components/layout/TagsView.vue
+09:25:57    45:27  warning  Missing file extension for "@/utils/i18n"                   import/extensions
+09:25:57    46:1   error    `path` import should occur before import of `@/utils/i18n`  import/
+
+09:25:57   ERROR  Build failed with errors.
+09:25:57  npm ERR! code ELIFECYCLE
+09:25:57  npm ERR! errno 1
+09:25:57  npm ERR! urm@3.0.0 build: `vue-cli-service build`
+09:25:57  npm ERR! Exit status 1
+09:25:57  npm ERR! 
+09:25:57  npm ERR! Failed at the urm@3.0.0 build script.
+09:25:57  npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+09:25:57  
+09:25:57  npm ERR! A complete log of this run can be found in:
+09:25:57  npm ERR!   /var/lib/jenkins/.npm/_logs/2022-08-15T01_25_56_891Z-debug.log
+```
+将包引入的顺序调换后就可以了
+
+
 
 
 
