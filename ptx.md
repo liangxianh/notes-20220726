@@ -240,9 +240,10 @@ Missing file extension "vue" for
   在重新运行是可以了的
 ```
 [extension相关文档](https://stackoverflow.com/questions/58671448/how-to-force-vue-extension-in-all-imports-using-eslint)
+
 [VUE-CLI3解决Missing file extension "vue" for "xxxx" (import/extensions)](https://www.jianshu.com/p/fe96234d01cc)
 
-
+[git缓冲问题导致](https://stackoverflow.com/questions/42308879/how-to-solve-npm-error-npm-err-code-elifecycle)
 
 ### 10 vue 报错如下
 ```
