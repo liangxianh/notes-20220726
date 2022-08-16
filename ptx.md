@@ -172,6 +172,10 @@ npm ERR! A complete log of this run can be found in:
 
 
 ### 7 nvm 用于管理node 版本 
+[nvm github安装使用教程](https://github.com/nvm-sh/nvm)
+```
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+```
 ```
 nvm install 12.20.0    比如安装12.20.0版本
 nvu use 12.20.0
@@ -193,7 +197,7 @@ source  .zshrc 运行一下文件
 
 
 ### 8  elementui 设置default-time 无效 
-查找说是需要设置
+?
 
 
 ### 9 项目目录报错如下，类似问题4但是加上问题4的解决方案后仍然无效；
@@ -287,6 +291,35 @@ found in
 09:25:57  npm ERR!   /var/lib/jenkins/.npm/_logs/2022-08-15T01_25_56_891Z-debug.log
 ```
 将包引入的顺序调换后就可以了
+
+
+### 12 vscode code install后每次重启电脑会失效
+前提先将vscode 拖拽到应用程序中在在终端运行如下命令；
+
+```
+sudo ln -fs "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code" "/usr/local/bin/"
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
