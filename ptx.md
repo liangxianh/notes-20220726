@@ -324,7 +324,15 @@ sudo ln -fs "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/cod
     console.log('a3,b3', a3, b3)
 ```
 
+### 14 element-ui某个版本错误
 
+<div style="color: red;">
+[Vue warn]: Avoid mutating a prop directly since the value will be overwritten whenever the parent component re-renders. Instead, use a data or computed property based on the prop's value. Prop being mutated: "placement"
+
+found in
+
+---> <ElDatePicker>
+</div>
 
 
 
