@@ -300,7 +300,29 @@ found in
 sudo ln -fs "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code" "/usr/local/bin/"
 ```
 
+### 13 TypeError: undefined is not iterable (cannot read property Symbol(Symbol.iterator))
 
+```
+当进行结构赋值时，若date为非[]格式的内容就会报错如上：
+    const [startT, endT] = this.date
+    
+    如下测试：
+    const testvar = []
+    const [a, b] = testvar
+    console.log('a,b', a, b)// a,b undefined undefined
+
+    const testvar1 = null
+    const [a1, b1] = testvar1// "TypeError: testvar1 is not iterable"
+    console.log('a1,b1', a1, b1)
+
+    const testvar2 = undefined
+    const [a2, b2] = testvar2// "TypeError: testvar2 is not iterable"
+    console.log('a2,b2', a2, b2)
+
+    // data 在data里面并没有被初始化
+    const [a3, b3] = this.data//TypeError: undefined is not iterable (cannot read property Symbol(Symbol.iterator))
+    console.log('a3,b3', a3, b3)
+```
 
 
 
