@@ -428,7 +428,67 @@ found in
 </html>
 ```
 
+### 15 code ELIFECYCLE。Rollup failed to resolve import */vant/es/*
 
+```
+[vite]: Rollup failed to resolve import "/Users/liangxianhong/Desktop/code/work/paytrigger/guard-always-h5/node_modules/vant/lib/vant/es/toast/style" from "src/main.js".
+This is most likely unintended because it can break your application at runtime.
+If you do want to externalize this module explicitly add it to
+`build.rollupOptions.external`
+error during build:
+Error: [vite]: Rollup failed to resolve import "/Users/liangxianhong/Desktop/code/work/paytrigger/guard-always-h5/node_modules/vant/lib/vant/es/toast/style" from "src/main.js".
+This is most likely unintended because it can break your application at runtime.
+If you do want to externalize this module explicitly add it to
+`build.rollupOptions.external`
+    at onRollupWarning (/Users/liangxianhong/Desktop/code/work/paytrigger/guard-always-h5/node_modules/vite/dist/node/chunks/dep-689425f3.js:41797:19)
+    at onwarn (/Users/liangxianhong/Desktop/code/work/paytrigger/guard-always-h5/node_modules/vite/dist/node/chunks/dep-689425f3.js:41613:13)
+    at Object.onwarn (/Users/liangxianhong/Desktop/code/work/paytrigger/guard-always-h5/node_modules/rollup/dist/shared/rollup.js:23216:13)
+    at ModuleLoader.handleResolveId (/Users/liangxianhong/Desktop/code/work/paytrigger/guard-always-h5/node_modules/rollup/dist/shared/rollup.js:22466:26)
+    at /Users/*/Desktop/code/work/*/node_modules/rollup/dist/shared/rollup.js:22427:26
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! guard@0.0.0 build: `vite build`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the guard@0.0.0 build script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /Users/liangxianhong/.npm/_logs/2022-09-06T08_33_42_437Z-debug.log
+
+
+原来的配置是
+export default defineConfig({
+  plugins: [
+    vue(),
+    styleImport({
+      libs: [
+        {
+          libraryName: 'vant',
+          esModule: true,
+          resolveStyle: (name) => `vant/es/${name}/style`,
+        },
+      ],
+    }),
+  ],
+
+将配置改为
+export default defineConfig({
+  plugins: [
+    vue(),
+    styleImport({
+      libs: [
+        {
+          libraryName: 'vant',
+          esModule: true,
+          resolveStyle: (name) => `${name}/style`,
+        },
+      ],
+    }),
+  ],
+  
+  之后就可以成功build了
+```
 
 
 
