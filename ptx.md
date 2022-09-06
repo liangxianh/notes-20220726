@@ -72,6 +72,8 @@ git push -u origin master
 2. 想要.gitignore起作用，必须要在这些文件不在暂存区中才可以，.gitignore文件只是忽略没有被staged(cached)文件， 对于已经被staged文件，加入ignore文件时一定要先从staged移除，才可以忽略。
 
 ### 6 常见的在文本框内插入其他文本功能
+
+在输入内容时想要插入某个参数比如：你输入订单号为${ordernum}，这个${ordernum}想要动态的插入
 ```
 <!DOCTYPE html>
 <html lang="en">
@@ -197,7 +199,7 @@ source  .zshrc 运行一下文件
 
 
 ### 8  elementui 设置default-time 无效 
-?
+? 选择当天后在选择又有效了，时而有效时而无效
 
 
 ### 9 项目目录报错如下，类似问题4但是加上问题4的解决方案后仍然无效；
@@ -224,7 +226,7 @@ Missing file extension "vue" for
   
   
 之后报错变为Unexpected use of file extension "vue" for
-最后将eslint改写为如下内容：
+最后将eslint改写为如下内容："import/extensions": ["warn"将该内容由error改为warn或者关闭即可
 "rules": {
   "import/extensions": ["warn", "always", {
     "js": "never",
@@ -266,6 +268,7 @@ vue.js?ba4c:5062 [Vue warn]: Avoid mutating a prop directly since the value will
 found in
 ---> <ElDatePicker>
 
+是element某个版本的问题，可以更新或更换版本；
 ```
 
 
@@ -348,6 +351,82 @@ found in
 解决:
 退出欧路词典或者有道词典，或者将软件上的“划词”功能关闭。
 
+
+### 16 Element: clipboard的事件copy cut paste 事件
+
+```
+<!-- https://www.w3.org/TR/clipboard-apis/#clipboard-event-definitions  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>获取copy的内容</title>
+</head>
+<body>
+  获取copy的内容
+  <div class="content">jkjkjk</div>
+  <input type="textarea">
+  <textarea name="" id="" cols="30" rows="10"></textarea>
+  <pre></pre>
+  <p></p>
+  <script type="text/javascript">
+    /* 
+      copy事件
+      当用户通过浏览器 UI（例如，使用 Ctrl/⌘+C 键盘快捷方式或从菜单中选择“复制”）启动复制操作并响应允许的document.execCommand('copy')调用时触发copy事件。
+      调用setData(format, data)可以修改ClipboardEvent.clipboardData事件的默认行为：
+    */
+    document.body.oncopy = e => {
+      // 监听全局复制 做点什么
+      console.log(e)
+    };
+    const div = document.querySelector('.content')
+    div.addEventListener('copy', (e) => {
+      // 阻止复制的默认事件
+      e.preventDefault()
+      const selection = document.getSelection()
+      // 把文本设置到剪切板中
+      e.clipboardData.setData('text', selection.toString() + '，我是答案cp3！')
+    })
+    /* 
+      cut 事件
+      cut 事件在将选中内容从文档中删除并将其添加到剪贴板后触发。
+      如果用户尝试对不可编辑内容执行剪切操作，则cut事件仍会触发，但事件对象不包含任何数据。
+    */
+    const input = document.querySelector('input')
+    input.addEventListener('cut', (e) => {
+      console.log('我是cut事件')
+    })
+    /* 
+      粘贴事件
+      如果光标位于可编辑的上下文中（例如，在 <textarea> 或者 contenteditable 属性设置为 true 的元素），则默认操作是将剪贴板的内容插入光标所在位置的文档中。
+      事件处理程序可以通过调用事件的 clipboardData 属性上的 getData()访问剪贴板内容。
+      要覆盖默认行为（例如，插入一些不同的数据或转换剪贴板的内容），事件处理程序必须使用 event.preventDefault()，取消默认操作，然后手动插入想要的数据。
+    */
+    const textarea = document.querySelector('textarea')
+    textarea.addEventListener('paste', async (e) => {
+      let paste = (event.clipboardData || window.clipboardData).getData('text');
+      console.log('paste---==', paste)
+      document.querySelector('pre').innerHTML = paste
+      document.querySelector('p').innerHTML = paste
+      const items = e.clipboardData.items
+      console.log(e.clipboardData.types)
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].kind === 'string') {
+          items[i].getAsString((str) => {
+            console.log('i=====',i , str)
+          })
+        }
+        // 对复制的文件的处理
+        if (items[i].kind === 'files') {
+        }
+      }
+    })
+  </script>
+</body>
+</html>
+```
 
 
 
