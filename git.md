@@ -25,4 +25,10 @@ git remote rm origin
 git remote rm upstream
 ```
 
-### 2
+### 2 已经push了的版本想要将其删除
+
+1 git log 查看，找到要删除内容的前一个节点id
+2 git reset --hard id
+3 查看本地结果，发现已没有中间提交过的内容
+对于已经push到远程了的需要执行下面的，若只是commit了 执行到上一步就可以了
+4 git push origin test --force
