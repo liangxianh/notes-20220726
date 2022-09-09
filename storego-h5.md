@@ -10,7 +10,9 @@ npm install -g @vue/cli
 -D  --save-dev。包将保存在devDependencies
 -S  --save 包将保存在dependencies
 
-注意vue
+注意vue和vue-router版本需要对应使用
+使用vue2安装对应的router3版本;
+使用vue3安装对应的router4版本;
 ```
 
 二 遇到的问题总结
