@@ -20,3 +20,75 @@
 
 * 可能原因是newwork被过滤了，删除过滤条件即可
 * 但是console的内容即使恢复设置也不行，还没找到具体的原因？？？
+
+
+### 3 vue 动态新增字段v-model到input上，输入一个字符后就离焦了
+源代码如下：
+```
+<el-form-item v-else
+  v-for="(item, index) in newObj.list"
+  :key="item.pars2"
+  class="item-wrapper">
+  <div class="flex-left">
+    <el-form-item label="参数1"
+      label-width="194px"
+      :prop="'list.' + index + '.pars1'"
+      :rules="{ required: true, message: '不能为空', trigger: 'change' }">
+      <el-select v-model="item.pars1"
+        filterable
+        no-data-text="No Data"
+        clearable
+        placeholder="参数1"
+        size="small">
+        <el-option v-for="item in pars1List"
+          :key="item.label"
+          :label="item.label"
+          :value="item.value" />
+      </el-select>
+    </el-form-item>
+    <el-form-item label="参数2"
+      label-width="194px"
+      :prop="'list.' + index + '.pars2'"
+      :rules="{ required: true, message: '不能为空', trigger: 'blur' }">
+      <el-input v-model="item.pars2"
+        maxlength="50"
+        type="textarea"></el-input>
+    </el-form-item>
+  </div>
+  <div class="flex-right">
+    <el-button type="primary"
+      circle
+      size="mini"
+      icon="el-icon-minus"
+      @click="delPars(index)"></el-button>
+    <el-button v-if="index === newObj.list.length-1 && newObj.list.length < 50"
+      type="primary"
+      circle
+      size="mini"
+      icon="el-icon-plus"
+      @click="addPars()"></el-button>
+  </div>
+</el-form-item>
+```
+问题的根源是:key="item.pars2"， 这个值绑定了动态输入的内容，内容输入后相当于key值变化了 div就会被重新渲染导致了离焦的效果，更新:key="index"即可
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
