@@ -77,11 +77,14 @@
 
 这样如过不做任何优化的话，页面将会存在最多50 * 3200 = 160000 16万条options数据， 这样页面会很卡顿；
 
-网上查看了有使用[vue-virtual-scroll-list](https://www.npmjs.com/package/vue-virtual-scroll-list) 的
+网上查看了有一下几种方案：
 
-也有使用[vue-virtual-scroller](http://www.wjhsh.net/lst619247-p-14580686.html)
+* 使用[vue-virtual-scroll-list](https://www.npmjs.com/package/vue-virtual-scroll-list) 的
 
-还有一种使用[elementui和vue-virtual-scroll-list](https://www.pudn.com/news/628bc32c16e0ca714148954c.html)可以解决一个select下拉选项过多的问题；
+* 使用[vue-virtual-scroller](http://www.wjhsh.net/lst619247-p-14580686.html)
+
+* 还有一种使用[elementui和vue-virtual-scroll-list](https://www.pudn.com/news/628bc32c16e0ca714148954c.html)可以解决一个select下拉选项过多的问题；
+* 使用懒加载[vue懒加载指令](https://juejin.cn/post/6979186001411473444)
 
 但是这几种种方案都不满足我项目的需求，多是一个select，下拉列表超级多的情况，于是自己想出了两种优化方案：
 
