@@ -73,10 +73,20 @@
 问题的根源是:key="item.pars2"， 这个值绑定了动态输入的内容，内容输入后相当于key值变化了 div就会被重新渲染导致了离焦的效果，更新:key="index"即可
 
 
-### 4. vue 动态添加参数并v-model到select上面，该select内容很多（3200条model数据）导致页面非常卡顿
+### 4. vue 动态添加参数（最多50条）并v-model到select上面，该select内容很多（近3200条model数据）导致页面非常卡顿
 
-想到
+这样如过不做任何优化的话，页面将会存在最多50 * 3200 = 160000 16万条options数据， 这样页面会很卡顿；
 
+网上查看了有使用[vue-virtual-scroll-list](https://www.npmjs.com/package/vue-virtual-scroll-list) 的 也有使用[vue-virtual-scroller](http://www.wjhsh.net/lst619247-p-14580686.html) 但是这两种方案都不满足我项目的需求，于是自己想出了两种优化方案：
+
+* 1 针对下拉列表进行点击后渲染列表数据，离焦后清空数据（或只保留当前选中的数据）；
+
+这种离焦清空数据，在点击option选项时就会被触发，直接就被清空，数据值没有不能被点选上；针对这种进行了优化，在select聚焦时就对当前下拉列表进行渲染，同时对所在的其他参数进行数据清空（或者只保留当前所选项）
+
+* 2 针对下拉列表提供搜索功能直接过滤一批（这样内容量会较小）
+
+
+针对第一种方法实现如下；
 ```
 <!-- html -->
     <el-form ref="form"
@@ -168,6 +178,38 @@
     
 <!--  js    -->
 
+// 优化内容，当聚焦时更新下拉列表，同时其他下拉列表（删除内容，只保留被选中的）
+    updateFilter(idx) {
+      const len = this.newObj.list.length
+      for (let i = 0; i < len; i++) {
+        if (i === idx) {
+          this.updateFilterAdd(i)
+        } else {
+          this.updateFilterDel(i)
+          console.log(i)
+        }
+      }
+    },
+    updateFilterAdd(idx) {
+      this.$nextTick(() => {
+        // filterList下拉列表参数不可重复，此为过滤后的数据
+        this.$set(this.newObj.list[idx], 'filterOptions', JSON.parse(JSON.stringify(this.filterList)))
+      })
+    },
+    updateFilterDel(idx) {
+      const model = this.newObj.list[idx].model
+      if (model) {
+        let eleSelected = []
+        this.modelList.forEach((item) => {
+          if (item.desc === model) {
+            eleSelected.push(item)
+          }
+        })
+        this.$set(this.newObj.list[idx], 'filterOptions', eleSelected)
+      } else {
+        this.$set(this.newObj.list[idx], 'filterOptions', [])
+      }
+    }
 ```
 
 
