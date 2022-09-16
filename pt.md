@@ -211,6 +211,7 @@
       const model = this.newObj.list[idx].model
       if (model) {
         let eleSelected = []
+        // 注意：此处为全量列表，非过滤后的；
         this.modelList.forEach((item) => {
           if (item.desc === model) {
             eleSelected.push(item)
