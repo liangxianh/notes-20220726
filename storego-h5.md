@@ -99,11 +99,24 @@ export 'isVNode' (imported as 'isVNode') was not found in 'vue' (possible export
 
 
 
-
-
-
-
 [eslint关闭各种内容的操作]（https://segmentfault.com/a/1190000040036418）
+
+
+4 使用vue-i18n时注意有可能因为版本不匹配而报错
+```
+i18n报错， Cannot read properties of undefined (reading ‘install‘) at Function.Vue.use
+
+"vue": "^2.6.14",
+    "vue-i18n": "^9.2.2",
+```
+报错信息：i18n报错， Cannot read properties of undefined (reading ‘install‘) at Function.Vue.use。
+
+报错的原因主要是因为当前使用的版本不匹配，在这里提供一个可行的其中一种方法。
+下载@8版本的就好
+npm install vue-i18n@8
+
+
+
 
 
 
