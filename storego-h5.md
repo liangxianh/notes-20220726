@@ -116,7 +116,110 @@ i18n报错， Cannot read properties of undefined (reading ‘install‘) at Fun
 npm install vue-i18n@8
 
 
+5 vant 国际化后但是 sku无格式化如何做国际化处理，没有找到具体的方案自己查看了源码，总结的相关方案如下:
+```
+import Vue from 'vue';
+import { Locale } from 'vant';
+import enUS from 'vant/es/locale/lang/en-US';
+// 2. 引入组件样式
+import 'vant/lib/index.css';
 
+Locale.use('en-US', enUS);
+
+import {
+  Field,
+  Radio,
+} from 'vant';
+
+Vue.use(Field)
+Vue.use(RadioGroup);
+
+// sku 组件单独做国际化处理
+const messages = {
+  'en-US': {
+    vanSku: {
+      select: 'Please select',
+      selected: 'Selected',
+      selectSku: 'Please select product specifications first',
+      soldout: 'Out of stock',
+      originPrice: 'Original Price',
+      minusTip: 'Select at least one',
+      minusStartTip: function minusStartTip(start) {
+        return start + "\u4EF6\u8D77\u552E";
+      },
+      unavailable: 'The product is no longer available for purchase!',
+      stock: 'Remains',
+      stockUnit: 'items',
+      quotaTip: function quotaTip(quota) {
+        // if (quota < 2) {
+        //   return "Limit to " + quota + "item per person";
+        // }
+        return "Limit to " + quota + quota<2?" item":" items" + " per person";
+      },
+      quotaUsedTip: function quotaUsedTip(quota, count) {
+        // let str1 = ''
+        // let str2 = ''
+        // if (count < 2) {
+        //   str1 = "Limit to " + quota + "item per person";
+        // } else {
+        //   str1 = "Limit to " + quota + "items per person";
+        // }
+        return "Limit to " + quota + quota<2?" item":" items" + " per person" + ",you have already purchased" + count + count<2?" item":" items";
+      }
+    },
+    vanSkuActions: {
+      buy: 'Buy Now',
+      addCart: 'Add to Cart'
+    },
+    vanSkuStepper: {
+      quotaLimit: function quotaLimit(quota) {
+        // return "Limited to" + quota + " items";
+        return ''
+      },
+      quotaStart: function quotaStart(start) {
+        return "Starting from " + start + "items";
+      },
+      comma: ',',
+      num: 'Number of purchases'
+    }
+  }
+};
+Locale.add(messages);
+```
+messages里面的信息是在sku---node_modules/vant/es/sku/lang.js 可以找到具体的语言用变量名，直接进行替换即可；
+
+
+6 vant sku 组件 里的price默认会除100？
+可以利用插槽来解决
+```
+ <van-sku
+      v-model="show"
+      :sku="sku"
+      :goods="goods"
+      :goods-id="productId"
+      :hide-stock="sku.hide_stock"
+      :quota="quota"
+      :initial-sku="initialSku"
+      reset-stepper-on-hide
+      reset-selected-sku-on-hide
+      disable-stepper-input
+      @buy-clicked="toBuy"
+      :show-add-cart-btn="false"
+      buy-text="Buy Now"
+    >
+      <template #sku-header-price="props">
+        <div class="van-sku__goods-price">
+          <span class="van-sku__price-symbol"
+            >{{ detailObj.currencySymbol }}
+          </span>
+          <!-- //重点注意 此处应设置vant手册中的初始化sku选择列表 不然只能支持单属性价格问题 -->
+          <span class="van-sku__price-num">{{
+            props.selectedSkuComb.price
+          }}</span>
+        </div>
+      </template>
+    </van-sku>
+```
 
 
 
