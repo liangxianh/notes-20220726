@@ -222,6 +222,9 @@ messages里面的信息是在sku---node_modules/vant/es/sku/lang.js 可以找到
 ```
 
 
+7 vant 主题定制
+在文件/node_modules/vant/lib/style/mixins/var.less 找到对应的变量内容,更改要变换的内容；然后引入
+如下：
 
 
 
