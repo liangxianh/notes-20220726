@@ -490,6 +490,23 @@ export default defineConfig({
   之后就可以成功build了
 ```
 
+### 16 催收系统在苹果手机的google浏览器不能正常访问
+
+首先需要调试利用xcode的模拟器可以模拟ios手机利用苹果浏览器进行调试；详细步骤如下：
+
+1. 在iOS设备上打开允许调试：设置→Safari→高级→打开”web检查器“
+
+2. 在MAC上打开Safari的开发菜单：顶部菜单栏“Safari”→偏好设置→高级→打开”在菜单栏中显示“开发”菜单
+
+3. 在iOS设备上的Safari浏览器中打开要调试的页面，然后切换到MAC的Safari，在顶部菜单栏选择“开发”→找到你的iOS设备名称→右边二级菜单选择需要调试的对应标签页，即可开始远程调试
+
+4. 如果没有iOS设备，也可以在Xcode中模拟一台，点击顶部“Xcode”→“Open Developer Tool”→“iOS Simulator”即可打开一个iOS设备的模拟器，并且模拟器里面Safari打开的页面，也是能通过上个步骤中MAC上的Safari调试。
+
+发现白屏的原因是在js文件中使用了为定义的Vue.prototype.$notify = Notification  其中Notification并为引入引起的，若使用引入即可，若不使用直接禁掉就可以了；
+
+### 17 chrome://inspect/#devices 测试移动端内容不用非要同网络下；
+直接移动端打开开发者模式即可；
+
 
 
 
