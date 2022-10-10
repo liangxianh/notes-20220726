@@ -32,3 +32,13 @@ git remote rm upstream
 3 查看本地结果，发现已没有中间提交过的内容
 对于已经push到远程了的需要执行下面的，若只是commit了 执行到上一步就可以了
 4 git push origin test --force
+
+
+### 3 简单的操作创建和删除分支
+
+1 git checkout -a 查看全部分支
+2 git checkout -b newName 切换到newName分支，没有该分支的话就创建 (无-b直接切分支)
+3 git branch -d name 删除本地指定分支
+4 git push remoteName --delete remoteBranchName 删除远程分支
+
+
