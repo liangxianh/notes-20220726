@@ -503,6 +503,7 @@ export default defineConfig({
 4. 如果没有iOS设备，也可以在Xcode中模拟一台，点击顶部“Xcode”→“Open Developer Tool”→“iOS Simulator”即可打开一个iOS设备的模拟器，并且模拟器里面Safari打开的页面，也是能通过上个步骤中MAC上的Safari调试。
 
 发现白屏的原因是在js文件中使用了为定义的Vue.prototype.$notify = Notification  其中Notification并为引入引起的，若使用引入即可，若不使用直接禁掉就可以了；
+[详细内容可以参考该文章](https://www.jianshu.com/p/da4ce4a19c04)
 
 ### 17 chrome://inspect/#devices 测试移动端内容不用非要同网络下；
 直接移动端打开开发者模式即可；
