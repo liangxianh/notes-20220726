@@ -221,10 +221,70 @@ messages里面的信息是在sku---node_modules/vant/es/sku/lang.js 可以找到
     </van-sku>
 ```
 
-
 7 vant 主题定制
+注意包版本问题
+"less": "^4.1.3",
+"less-loader": "^7.3.0",
+```
+const myTheme = path.join(__dirname, './src/assets/styles/var.less')
+
+
+  css: {
+    loaderOptions: {
+      less: {
+        javascriptEnabled: true,
+	        modifyVars: {
+	          // 直接覆盖变量
+	          // 'text-color': 'red',
+	          // 或者可以通过 less 文件覆盖（文件路径为绝对路径）
+            'hack': `true; @import "${myTheme}";`
+	        }
+      },
+    },
+  },
+
+当类似这么引入时会报错如下 
+ERROR in ./src/views/Agent.vue?vue&type=style&index=0&id=23dc028a&lang=less&scoped=true& (./node_modules/css-loader/dist/cjs.js??clonedRuleSet-32.use[1]!./node_modules/@vue/cli-service/node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/@vue/cli-service/node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-32.use[2]!./node_modules/less-loader/dist/cjs.js??clonedRuleSet-32.use[3]!./node_modules/@vue/cli-service/lib/config/vue-loader-v15-resolve-compat/vue-loader.js??vue-loader-options!./src/views/Agent.vue?vue&type=style&index=0&id=23dc028a&lang=less&scoped=true&)
+
+Invalid options object. Less Loader has been initialized using an options object that does not match the API schema.
+ - options has an unknown property 'modifyVars'. These properties are valid:
+   object { lessOptions?, additionalData?, sourceMap?, webpackImporter?, implementation? }
+   
+需要将less降级为5.*版本，即可
+```
 在文件/node_modules/vant/lib/style/mixins/var.less 找到对应的变量内容,更改要变换的内容；然后引入
-如下：
+```
+以改变nav头部背景及文字颜色为例：可以通过改变样式来处理，
+.van-nav-bar {
+    background-color: @color-primary;
+
+    .van-nav-bar__left {
+      .van-icon-arrow-left {
+        color: #fff;
+        color: @font-white;
+      }
+    }
+    .van-nav-bar__right {
+      .van-nav-bar__text {
+        color: @font-white;
+      }
+    }
+    .van-nav-bar__title {
+      color: @font-white;
+    }
+  }
+  
+也可以通过改变主题色方式来处理在src/assets/styles/var.less中定义如下：
+@color-primary: #10AD94;
+@font-white: rgba(256, 256, 256, 0.9);
+
+
+@nav-bar-text-color: @font-white;
+@nav-bar-title-text-color: @font-white;
+@nav-bar-icon-color: @font-white;
+@nav-bar-background-color: @color-primary;
+都可以达到效果
+```
 
 
 
