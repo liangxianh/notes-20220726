@@ -286,6 +286,9 @@ Invalid options object. Less Loader has been initialized using an options object
 都可以达到效果
 ```
 
+8 better-scroll 设置时一定注意需要定位,且层级关系固定
+详见[该文章](https://blog.csdn.net/qiqi_77_/article/details/79361413)
+
 
 
 
