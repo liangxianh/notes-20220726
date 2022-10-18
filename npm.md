@@ -18,3 +18,13 @@ Node版本太低，我当时Node版本为12，运行就报上面错误；将Node
 Error [ERR_PACKAGE_PATH_NOT_EXPORTED]: Package subpath './dist/vue-router.esm-bundler.js' is not defined by "exports" in /Users/liangxianhong/Desktop/myprivate/study/webpack_docs/node_modules/vue-router/package.json
     at applyExports (internal/modules/cjs/loader.js:492:9)
 ```
+我遇到这个问题时使用的是node 14  版本太高了，如下操作
+```
+nvm use 12.20.0
+rm -rf node_modules
+rm -rf package-lock.json
+npm cache clear --force
+npm install
+
+在开启项目即可npm start
+```
