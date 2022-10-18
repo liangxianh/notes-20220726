@@ -15,5 +15,6 @@ Node版本太低，我当时Node版本为12，运行就报上面错误；将Node
 解决方法
 升级Node版本
 ```
-
+Error [ERR_PACKAGE_PATH_NOT_EXPORTED]: Package subpath './dist/vue-router.esm-bundler.js' is not defined by "exports" in /Users/liangxianhong/Desktop/myprivate/study/webpack_docs/node_modules/vue-router/package.json
+    at applyExports (internal/modules/cjs/loader.js:492:9)
 ```
