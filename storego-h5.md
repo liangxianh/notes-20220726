@@ -292,7 +292,7 @@ Invalid options object. Less Loader has been initialized using an options object
 9 移动端底部有固定定位的按钮，body有输入文本框，focus时 按钮会将内容覆盖
 原理即：监控window.innerHeight变化来改变定位方式，利用resize以及watch实现；
 [详细解决方案参考](https://blog.csdn.net/Tmengxing/article/details/122685087)
-
+[vue.config.js一些配置解释](https://blog.csdn.net/momomo12138/article/details/125844249)
 
 
 
