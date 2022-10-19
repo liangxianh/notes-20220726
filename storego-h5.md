@@ -294,6 +294,26 @@ Invalid options object. Less Loader has been initialized using an options object
 [详细解决方案参考](https://blog.csdn.net/Tmengxing/article/details/122685087)
 [vue.config.js一些配置解释](https://blog.csdn.net/momomo12138/article/details/125844249)
 
-
+10 利用terser-webpack-plugin去除console.log不起作用？？？？？？？？？？？？
+```
+具体代码如下：
+optimization: {
+      minimize: true,
+      minimizer: [
+        new TerserWebpackPlugin({
+          terserOptions: {
+            compress: {
+              warnings: false,
+              drop_console: true,
+              drop_debugger: true,
+              pure_funcs: ['console.log', "console.table"] // 删除console
+            }
+          },
+        }),
+      ]
+    }
+```
+build后的文件仍然含有console.log，求救？？？？？？？
+[插件api地址](https://webpack.js.org/plugins/terser-webpack-plugin/#terseroptions)
 
 
