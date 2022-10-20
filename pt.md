@@ -227,8 +227,18 @@
 ```
 
 
+### 5 正式环境报错 Failed to load module script: expected a javascript module scritp but the server responded with a mime type of text/hmtl, strict mime type checking is enforced for module scripts per html spec
+测试预发环境都是好的，但是正式环境偶尔会出现上面的错误
+![image](https://user-images.githubusercontent.com/31762176/196906691-fa9af7d0-cdb0-47ea-adf7-6ebc6429c415.png)
+```
+发现是env prod.js 配置baseurl出现问题；
+// 有问题的代码
+window.BASE_URL = "https://yourdomain/yourpubulicpath/ ";
 
-    
+// 更新后的代码
+window.BASE_URL = "https://yourdomain/yourpubulicpath";
+```
+baseurl后面多加入了‘/ ’导致报出该错误
     
     
     
