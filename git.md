@@ -42,3 +42,35 @@ git remote rm upstream
 4 git push remoteName --delete remoteBranchName 删除远程分支
 
 
+
+### 4 .gitignore不起作用，可能是因为缓存造成的
+```
+删除指定文件的缓存
+git rm -r --cached src/main/resources/application-local.yml
+
+修改.gitignore文件中，将application-local.yml文件ignore掉
+在.gitignore文件中添加:
+src/main/resources/application-local.yml
+
+提交.gitignore文件的修改
+ git add .gitignore
+ git commit -m "清除git缓存，解决gitignore问题"
+ git push
+
+// 上面是针对某个文件的内容，可以直接将所有cached清空
+git rm -r --cached .
+git add .
+git commit -m 'update .gitignore'
+
+```
+
+
+### 5 git 删除分支
+ ```
+ 
+ ```
+
+
+
+
+
