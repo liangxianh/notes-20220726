@@ -239,8 +239,9 @@ window.BASE_URL = "https://yourdomain/yourpubulicpath/ ";
 window.BASE_URL = "https://yourdomain/yourpubulicpath";
 ```
 baseurl后面多加入了‘/ ’导致报出该错误
-    
-    
+
+参考文档：
+[URL中的双斜杠是什么意思？](http://129.226.226.195/post/15658.html)
     
     
     
