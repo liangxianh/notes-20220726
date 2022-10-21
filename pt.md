@@ -227,8 +227,8 @@
 ```
 
 
-### 5 正式环境报错 Failed to load module script: expected a javascript module scritp but the server responded with a mime type of text/hmtl, strict mime type checking is enforced for module scripts per html spec
-测试预发环境都是好的，但是正式环境偶尔会出现上面的错误
+### 5 正式环境报错 Failed to load module script: expected a javascript module script but the server responded with a mime type of text/hmtl, strict mime type checking is enforced for module scripts per html spec
+测试预发环境都是好的，但是正式环境偶尔会出现上面的错误（现象是某一台电脑登陆某一个账号导致几乎所有页面访问不了，其他账号或多或少可以访问；）
 ![image](https://user-images.githubusercontent.com/31762176/196906691-fa9af7d0-cdb0-47ea-adf7-6ebc6429c415.png)
 ```
 发现是env prod.js 配置baseurl出现问题；
@@ -242,6 +242,10 @@ baseurl后面多加入了‘/ ’导致报出该错误
 
 参考文档：
 [URL中的双斜杠是什么意思？](http://129.226.226.195/post/15658.html)
+[类似问题1](https://github.com/vitejs/vite/discussions/9332)
+[类似问题2](https://github.com/nuxt/framework/issues/7285)
+[类似问题3](https://github.com/vitejs/vite/issues/8429)
+[类似问题4](https://stackoverflow.com/questions/72070748/failed-to-load-module-script-expected-a-javascript-module-script-but-the-server)
     
     
     
