@@ -28,3 +28,16 @@ npm install
 
 在开启项目即可npm start
 ```
+
+
+2 利用postcss-px2rem失效
+```
+@vue/cli 5.0.8
+webpack: 5.74.0
+webpack-cli: 4.10.0
+
+```
+postcss-px2rem需要低版本的postcss，vuecli5后使用了webpack5+postcss8，不支持旧版本的postcss插件，换一个插件就好了
+[参考文档1](https://www.zhihu.com/question/522850323)
+[参考文档2](https://blog.csdn.net/CSTGShaGuo/article/details/123141613)
+[参考文档3](https://blog.csdn.net/CSTGShaGuo/article/details/123141613)
