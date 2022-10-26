@@ -75,6 +75,61 @@ npm install webpack webpack-cli -g
     },
   },
 ```
-```
+### 5 移除生产环境的console.log
+
 
 ```
+npm install -D babel-plugin-transform-remove-console
+之后在babel.config.js中配置
+module.exports = {
+  presets: [
+    '@vue/cli-plugin-babel/preset'
+  ],
+  env: {
+		production: {
+			plugins: ["transform-remove-console"]
+		},
+	},
+  // 下面不需要配置，在main.js文件中已引入了
+  plugins: [
+    [
+      'import',
+      {
+        libraryName: 'vant',
+        libraryDirectory: 'es',
+        // 指定样式路径
+        style: (name) => `${name}/style/less`,
+      },
+      'vant',
+    ],
+  ],
+}
+```
+
+### 6 针对v-html存在的安全漏洞可以引入xss
+```
+chainWebpack: config => {
+    config.module
+      .rule("vue")
+      .use("vue-loader")
+      .loader("vue-loader")
+      .tap(options => {
+        options.compilerOptions.directives = {
+          html(node, directiveMeta) {
+            (node.props || (node.props = [])).push({
+              name: "innerHTML",
+              value: `xss(_s(${directiveMeta.value}))`
+            });
+          }
+        };
+        return options;
+      });
+  }
+  
+  或者在mainjs中直接引入
+  import xss from 'xss';
+  Vue.prototype.$xss = xss
+  在vue文件中直接使用如下即可：
+  <div class="desc-pre" v-html="$xss(yourDesc)"></div>
+```
+
