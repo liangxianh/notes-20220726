@@ -105,7 +105,8 @@ module.exports = {
   ],
 }
 ```
-
+[参考文档](https://juejin.cn/post/6917156163075178509)
+ 
 ### 6 针对v-html存在的安全漏洞可以引入xss
 ```
 chainWebpack: config => {
