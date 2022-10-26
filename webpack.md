@@ -125,6 +125,8 @@ chainWebpack: config => {
         return options;
       });
   }
+  在vue文件中直接使用如下即可：
+  <div class="desc-pre" v-html="yourDesc"></div>
   
   或者在mainjs中直接引入
   import xss from 'xss';
