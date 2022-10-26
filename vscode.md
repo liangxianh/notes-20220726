@@ -7,4 +7,6 @@
     "*.vue": "vue-html"  // sccript和less都不可正常显示只是注释是<!-- --> 
   },
 ```
- 
+ vscode插件安装的问题导致的
+ 将其他插件都删除只保留如下的插件就可以了
+![image](https://user-images.githubusercontent.com/31762176/197996151-b362b641-9a44-49c5-baee-aac47b3049bd.png)
