@@ -12,6 +12,143 @@ npm install webpack webpack-cli -g
 ### 2 webpack vue.config.js和webpack.config.js区别？
 
 ### 3 webpack vue.config.js中configureWebpack和chainWebpack区别？
+[参考文档]([https://www.jianshu.com/p/a5fa2629e942](https://www.jianshu.com/p/27d82d98a041))
+
+在vuecli官方文档上有详细的介绍；
+```
+module.exports = {
+  configureWebpack: {
+    plugins: [
+      new MyAwesomeWebpackPlugin()
+    ]
+  }
+}
+```
+ configureWebpack 选项提供一个对象：该对象将会被 webpack-merge 合并入最终的 webpack 配置。也可以基于环境去配置
+ 
+ > 警告有些 webpack 选项是基于 vue.config.js 中的值设置的，所以不能直接修改。例如你应该修改 vue.config.js 中的 outputDir 选项而不是修改 output.path；你应该修改 vue.config.js 中的 publicPath 选项而不是修改 output.publicPath。这样做是因为 vue.config.js 中的值会被用在配置里的多个地方，以确保所有的部分都能正常工作在一起。
+ 
+ ```
+ // vue.config.js
+module.exports = {
+  configureWebpack: config => {
+    if (process.env.NODE_ENV === 'production') {
+      // 为生产环境修改配置...
+    } else {
+      // 为开发环境修改配置...
+    }
+  }
+}
+如下实例：
+ configureWebpack: config => {
+    if (isProduction) {
+      ...
+    } else {
+      ...
+    }
+    //直接修改配置
+    config.resolve.alias['@asset'] = resolve('src/assets')
+  }
+  或者
+ configureWebpack: config => {
+    if (isProduction) {
+      ...
+    } else {
+      ...
+    }
+    //返回一个将要合并的对象
+    return {
+      resolve: {
+        alias: {
+          '@asset':resolve('src/assets')
+        }
+      }
+    } 
+  }
+ ```
+ 如果你需要基于环境有条件地配置行为，或者想要直接修改配置，那就换成一个函数 (该函数会在环境变量被设置之后懒执行)。该方法的第一个参数会收到已经解析好的配置。在函数内，你可以直接修改配置，或者返回一个将会被合并的对象：
+ ```
+// 对比下面的内容chainwebpack内容
+ module.exports = {
+    configureWebpack: config=>{
+        config.plugin=[
+            new HappyPack({
+                loaders:[
+                 {
+                    loader: 'babel-loader?cacheDirectory=true',
+                }
+              ]
+            })
+        ]
+    }
+} 
+
+ ```
+ 
+#### 链式操作 (高级)
+而Vue CLI 内部的 webpack 配置是通过 webpack-chain 维护的，这个库提供了一个 webpack 原始配置的上层抽象，使其可以定义具名的 loader 规则和具名插件，并有机会在后期进入这些规则并对它们的选项进行修改。
+```
+// 官方代码示例
+config
+  .plugin(name)
+  .use(WebpackPlugin, args)
+```
+参数说明
+
+* name 是 webpack-chain 里的key，就是要加入的插件在 webpack-chain 配置里的 key ，就是我们自定义插件的名字,一般我们都保持跟插件名称相同
+* WebpackPlugin 使用的 webpack 插件名，在这里，可以直接使用插件，无需进行实例化，就是不需要 new WebpackPlugin()
+* args 插件的参数信息。特别注意，args是一个数组，例如 [{},{}] 这种方式，可以配置多个插件实例
+
+```
+module.exports = (config) => {
+    // set svg-sprite-loader
+    config.module
+        .rule('svg')
+        .uses.clear() // 先删除原有的默认svg rule，写法1,
+        // .exclude.add(resolve('src/assets/icons')) // 写法2 针对svg默认规则，忽略src/assets/icons此文件夹下的
+        .end()
+    config.module
+        .rule('icons')
+        .test(/\.svg$/)
+        .include.add(resolve('./../src/assets/icons'))
+        .end()
+        .use('svg-sprite-loader')
+        .loader('svg-sprite-loader')
+        .options({
+            symbolId: 'icon-[name]',
+        })
+        .end()
+
+    //开启happyPack多线程打包
+    config.plugin('HappyPack').use(HappyPack, [
+        {
+            loaders: [
+                {
+                    loader: 'babel-loader?cacheDirectory=true',
+                },
+            ],
+        },
+    ])
+}
+```
+
+可以看到使用chainWebpack链式写法会简洁很多，不需要new，相当于是一个语法糖吧。
+
+它允许我们更细粒度的控制其内部配置。接下来有一些常见的在 vue.config.js 中的 chainWebpack 修改的例子。
+```
+// vue.config.js 修改 Loader 选项
+module.exports = {
+  chainWebpack: config => {
+    config.module
+      .rule('vue')
+      .use('vue-loader')
+        .tap(options => {
+          // 修改它的选项...
+          return options
+        })
+  }
+}
+```
 
 ### 4 webpack vue.config.js中configureWebpack: (config) => {}和configureWebpack: {}区别？
 
