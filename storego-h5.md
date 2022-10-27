@@ -297,7 +297,8 @@ Invalid options object. Less Loader has been initialized using an options object
 10 利用terser-webpack-plugin去除console.log不起作用？？？？？？？？？？？？
 ```
 具体代码如下：
-optimization: {
+  configureWebpack: {
+    optimization: {
       minimize: true,
       minimizer: [
         new TerserWebpackPlugin({
@@ -312,8 +313,31 @@ optimization: {
         }),
       ]
     }
+   }
+    
+    
 ```
 build后的文件仍然含有console.log，求救？？？？？？？
 [插件api地址](https://webpack.js.org/plugins/terser-webpack-plugin/#terseroptions)
+使用如下方式即可
+```
+ configureWebpack: (config) => {
+    config.optimization.minimizer[0].options.minimizer.options.compress.drop_console = true
+  },
+```
+具体详见webpack笔记
+
+11 标签使用v-html富文本，如何让富文本中的图片点击放大；
+```
+外层绑定函数，获取内部具体哪个标签被点击了，若是img 则获取相应的url在弹框中打开并放大；
+    showImg(e) {
+      if (e.target.tagName == 'IMG') {
+        this.previewImg = e.target.src
+        this.imgShow = true
+      }
+    },
+```
+
+[参考文档](https://www.jianshu.com/p/936b10460cad)
 
 
