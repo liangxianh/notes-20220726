@@ -12,8 +12,8 @@ npm install webpack webpack-cli -g
 ### 2 webpack vue.config.js和webpack.config.js区别？
 
 ### 3 webpack vue.config.js中configureWebpack和chainWebpack区别？
-[参考文档]([https://www.jianshu.com/p/a5fa2629e942](https://www.jianshu.com/p/27d82d98a041))
-
+[参考文档1](https://www.jianshu.com/p/27d82d98a041)
+[参考文档2](https://cli.vuejs.org/zh/guide/webpack.html)
 在vuecli官方文档上有详细的介绍；
 ```
 module.exports = {
@@ -151,6 +151,11 @@ module.exports = {
 ```
 
 ### 4 webpack vue.config.js中configureWebpack: (config) => {}和configureWebpack: {}区别？
+
+* 如果这个值是一个对象，则会通过 webpack-merge 合并到最终的配置中。
+* 如果这个值是一个函数，则会接收被解析的配置作为参数。该函数既可以修改配置并不返回任何东西，也可以返回一个被克隆或合并过的配置版本。
+
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
 比如配置生产环境移除console.log利用方法1 可以生效，利用方法二则不生效，但是splitChunks是成功执行了的而且plugins压缩也正常只是optimization不生效；
 ```
