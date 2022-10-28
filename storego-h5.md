@@ -337,6 +337,26 @@ build后的文件仍然含有console.log，求救？？？？？？？
       }
     },
 ```
+类似功能原生实现方法，可以用于webview
+```
+  <div id="mydiv">
+    此处是你的富文本
+    My first product. ------ <br><img class="zoom-in"
+      src="yourimgurl"
+      style="width: 50%; cursor: pointer;" image="" width="50%"><br><br>.-------++-------<br>End ddd
+  </div>
+  <script>
+    function zoomin(event) {
+      if (event.target.tagName == "IMG") {
+        console.log(event.target.src)
+        // 调用你的方法给到自己
+      }
+    }
+    var mydiv = document.getElementById('mydiv')
+    mydiv.addEventListener('click', zoomin)
+
+  </script>
+```
 
 [参考文档](https://www.jianshu.com/p/936b10460cad)
 
