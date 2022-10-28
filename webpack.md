@@ -278,3 +278,4 @@ chainWebpack: config => {
   <div class="desc-pre" v-html="$xss(yourDesc)"></div>
 ```
 
+### 7 纯静态资源配置webpack
