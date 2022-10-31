@@ -279,3 +279,22 @@ chainWebpack: config => {
 ```
 
 ### 7 纯静态资源配置webpack
+
+
+### 8 webpack-dev-server 安装后显示为安装
+
+```
+npm install -D webpack-dev-server 
+执行成功后
+webpack -v后显示
+
+webpack: 5.74.0
+webpack-cli: 4.10.0
+webpack-dev-server not installed
+
+并且执行webpack server会报错如下：
+```
+![image](https://user-images.githubusercontent.com/31762176/198917151-2c7b3328-f281-4f8a-9f50-89f0bf3333a3.png)
+重新试了一下将webpack webpack-cli 和webpack-server 都安装在同一级别 可以了，但是应该不是这个原因，应该是自己babel设置的问题，options应该设置为{} 而自己
+s设置为了数组
+
