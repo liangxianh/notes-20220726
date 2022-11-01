@@ -298,3 +298,64 @@ webpack-dev-server not installed
 重新试了一下将webpack webpack-cli 和webpack-server 都安装在同一级别 可以了，但是应该不是这个原因，应该是自己babel设置的问题，options应该设置为{} 而自己
 s设置为了数组
 
+
+
+### 9 webpack打包静态资源配置好webpack.config.js后执行webpack serve 打开的网页刷新后引入的图片访问不到 （刷新之前可以正常访问）？
+
+![image](https://user-images.githubusercontent.com/31762176/199195114-43d33324-b111-4b37-9526-892e29a62da2.png)
+因为自己的配置打包后路径的问题
+```
+      {
+        test: /\.(png|jpe?g|gif|webp)$/,
+        type: "asset",
+        parser: {
+          dataUrlCondition: {
+            maxSize: 10 * 1024, // 小于10kb的图片会被base64处理
+          },
+        },
+        generator: {
+          filename: "imgs/[hash:8][ext][query]",
+        },
+      },
+修改之后变为：
+      {
+        test: /\.(png|jpe?g|gif|webp)$/,
+        type: "asset",
+        parser: {
+          dataUrlCondition: {
+            maxSize: 10 * 1024, // 小于10kb的图片会被base64处理
+          },
+        },
+        generator: {
+          filename: "imgs/[hash:8].[name][ext]",
+        },
+      },
+```
+修改之前的打包和引入的方式：
+![image](https://user-images.githubusercontent.com/31762176/199197765-228025c3-c845-4ff3-9bc4-dfcda2d0de7f.png)
+
+修改之后的打包和引入的方式：
+![image](https://user-images.githubusercontent.com/31762176/199198294-cc32ab67-e51b-4c75-a93a-b16696627f56.png)
+
+
+### 10 webpack打包静态资源配置好webpack.config.js 执行webpack serve可以开启服务，但是之下npm run dev显示如下：
+
+![image](https://user-images.githubusercontent.com/31762176/199195496-3989eb83-e05c-4372-b2f1-b7fe52597378.png)
+其中json文件配置的脚本如下：
+```
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run dev",
+    "dev": "npm webpack serve --config webpack.config.js",
+    "build": "npm webpack --config webpack.config.js"
+  },
+  
+  修改为如下即可：
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run dev",
+    "dev": "webpack serve --config webpack.config.js",
+    "build": "webpack --config webpack.config.js"
+  },
+```
+
