@@ -9,6 +9,19 @@
 
 3 webpack如何处理ico资源
 
+```
+    new HtmlWebpackPlugin({
+      // 以 public/index.html 为模板创建文件
+      // 新的html文件有两个特点：1. 内容和源文件一致 2. 自动引入打包生成的js等资源
+      template: path.resolve(__dirname, "./src/index.html"),
+      minify: {
+        collapseWhitespace: true,
+        removeComments: true
+      },
+      favicon: resolve(__dirname, 'src/favicon.ico')
+    }),
+```
+
 4 webpack纯静态资源如何对原生js实现的内容接口请求进行接口转发
 
 5 webapck开发环境启动后发现devserver设置的接口转发无效，或者说启动没有走这里
