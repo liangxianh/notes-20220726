@@ -350,7 +350,7 @@ s设置为了数组
     "build": "npm webpack --config webpack.config.js"
   },
   
-  修改为如下即可：
+  修改为如下即可：(删掉dev和build里面的npm)
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run dev",
