@@ -246,7 +246,7 @@ const data = 'versionCode=1'
 
 ```
 
-8 纯原生页面如何处理html先加载而js和css后加载导致的页面混乱问题
+#### 8 纯原生页面如何处理html先加载而js和css后加载导致的页面混乱问题
 正常情况下css和js同在一般会先加载css 在加载js，而webpack打包将样式和js内容都打包到了js文件内，造成比较大，加载很慢就会出现html内容先展示，无任何样式，就显得有点乱码一样；
 顾只要将css抽取出来即可了使用mini-css-extract-plugin插件
 ```
@@ -280,8 +280,9 @@ plugins: [
 ```
 > Note that if you import CSS from your webpack entrypoint or import styles in the initial chunk, mini-css-extract-plugin will not load this CSS into the page. Please use html-webpack-plugin for automatic generation link tags or create index.html file with link tag.
 
+#### 9 利用webpack压缩打包出来的gz资源，服务器怎么开启加载gz资源还是原资源呢？
 
-
+理解是nginx自身可以对静态资源进行gz，即使自己不压缩也回被处理；
 
 
 
