@@ -1,6 +1,9 @@
 ### 官网开发遇到的问题
 
-> 设计方案： 纯静态页面，利用webpack进行打包和压缩，
+> 设计方案： 纯静态页面，利用webpack进行打包和压缩，因为要适应移动端和web端；可以下适应移动端（主流的），在利用媒体文件查询写web端样式；对于布局的不同可以看css是否可以实现
+比如：移动端排版不同，可以利用，flex-direction: row-reverse;进行左右位置互换，但是也是需要单独的设置样式；若位置不同可以利用dom的display：none；来实现等；
+
+下面是全部的webpack相关的配置文件；
 ```
 webpack.config.js内容
 
@@ -120,10 +123,46 @@ module.exports = {
   }
 }
 ```
+相关依赖包版本
+```
+"devDependencies": {
+    "@babel/core": "^7.19.6",
+    "@babel/preset-env": "^7.19.4",
+    "babel-loader": "^8.2.5",
+    "compression-webpack-plugin": "^10.0.0",
+    "css-loader": "^6.7.1",
+    "css-minimizer-webpack-plugin": "^4.2.2",
+    "eslint": "^8.26.0",
+    "eslint-webpack-plugin": "^3.2.0",
+    "html-loader": "^4.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "ip": "^1.1.8",
+    "less-loader": "^11.1.0",
+    "mini-css-extract-plugin": "^2.6.1",
+    "postcss-loader": "^7.0.1",
+    "postcss-px-to-viewport": "^1.1.1",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1"
+  }
+```
 
-1 webpack如何利用babel转译js代码
+#### 1 webpack如何利用babel转译js代码
+如上：
+```
+     {
+        test: /\.js$/,
+        exclude: /node_modules/, // 排除node_modules代码不编译
+        loader: "babel-loader",
+        options: {
+          presets: ['@babel/preset-env']
+        }
+      },
+```
+[多页面参考]（https://github.com/vhtml/webpack-MultiPage-static/blob/master/webpack.config.js）
 
-2 webpack如何处理图片资源；
+#### 2 webpack如何处理图片资源；
 ```
 module.exports = {
     module: {
@@ -150,7 +189,7 @@ module.exports = {
 }
 ```
 
-3 webpack如何处理ico资源
+#### 3 webpack如何处理ico资源
 
 ```
     new HtmlWebpackPlugin({
@@ -165,7 +204,7 @@ module.exports = {
     }),
 ```
 
-4 webpack纯静态资源如何对原生js实现的内容接口请求进行接口转发
+#### 4 webpack纯静态资源如何对原生js实现的内容接口请求进行接口转发
 ```
 devServer: {
     hot: true,
@@ -185,14 +224,14 @@ devServer: {
 对本地进行接口转发时需要注意：项目里面接口请求若书写的是全路径的地址，就不会走本地的转发；
 即当接口请求时直接使用了原路径：'https://test.*.com/publicpath/v1/file/downloadApp  则在devserver里面配置的接口转发将会不弃作用；
 
-5 webapck开发环境启动后发现devserver设置的接口转发无效，或者说启动没有走这里
+#### 5 webapck开发环境启动后发现devserver设置的接口转发无效，或者说启动没有走这里
 实际是走了的，只是接口写了全路径没有走到本地；需要设置类似这种的请求路径 在env里面进行设置环境变量，配置window.BASE_URL = "https://api.amatooke.com/";
 apiUrl = '/public/v1/file/downloadApp'
 
-6 更新代码后为进行编辑处理直接push到远程，部署到服务器后发现打包后的代码并没有更新；
+#### 6 更新代码后为进行编辑处理直接push到远程，部署到服务器后发现打包后的代码并没有更新；
 构建打包错项目了
 
-7 原生js实现post请求，Content-Type设置不同时数据解析需要不同的内容
+#### 7 原生js实现post请求，Content-Type设置不同时数据解析需要不同的内容
 
 ```
 xhr.setRequestHeader("Content-Type", "application/json"); 时：
