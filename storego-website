@@ -282,13 +282,15 @@ plugins: [
 
 #### 9 利用webpack压缩打包出来的gz资源，服务器怎么开启加载gz资源还是原资源呢？
 
+在本地nginx中配置gzip on 发现不起作用
+
 #### 10 nginx进行压缩资源和webpack压缩
 
-理解是nginx自身可以对静态资源进行gz，即使自己不压缩也回被处理；
+理解是nginx自身可以对静态资源进行gz，即使自己不压缩也会被处理；
 
 
 
-
+[mac环境安装nginx](https://www.cnblogs.com/tugenhua0707/p/9863885.html)
 
 
 
