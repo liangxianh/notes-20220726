@@ -360,4 +360,16 @@ build后的文件仍然含有console.log，求救？？？？？？？
 
 [参考文档](https://www.jianshu.com/p/936b10460cad)
 
-
+12 富文本客户端想要图片固定宽高（且想要高等于宽），摘取部分展示不进行压缩
+可以使用vw设置宽和高，在利用object-fit：设置相应的属性 [详细内容介绍参考](https://developer.mozilla.org/zh-CN/docs/Web/CSS/object-fit)
+object-fit CSS 属性指定可替换元素（例如：<img> 或 <video>）的内容应该如何适应到其使用高度和宽度确定的框。
+```
+  <div id="mydiv">
+    <img src="https://raw.githubusercontent.com/wasabeef/art/master/chip.jpg"
+      alt="https://raw.githubusercontent.com/wasabeef/art/master/chip.jpg"
+      style="width: 44vw; height:44vw;object-fit: cover;">
+    <img src="https://raw.githubusercontent.com/wasabeef/art/master/chip.jpg"
+      alt="https://raw.githubusercontent.com/wasabeef/art/master/chip.jpg"
+      style="width: 44vw; height:44vw;object-fit: cover;">
+  </div>
+```
