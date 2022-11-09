@@ -282,15 +282,21 @@ plugins: [
 
 #### 9 利用webpack压缩打包出来的gz资源，服务器怎么开启加载gz资源还是原资源呢？
 
-在本地nginx中配置gzip on 发现不起作用
+在本地nginx中配置gzip on 发现不起作用；因为webpack压缩好的内容对nginx来说属于静态压缩，使用的是现成的扩展名为.gz的预压缩文件；
+```
+
+```
 
 #### 10 nginx进行压缩资源和webpack压缩
 
-理解是nginx自身可以对静态资源进行gz，即使自己不压缩也会被处理；
+理解是nginx自身可以对静态资源进行gz，若设置了压缩即使自己webpack不压缩也会被处理；web端一般利用webpack直接gz好，远程nginx直接gzip on；即可
+关于 nginx 的 gzip ，可以分为两种：
+
+nginx 动态压缩，对每个请求先压缩再输出。
+nginx 静态压缩，使用现成的扩展名为 .gz 的预压缩文件。
 
 
-
-
+[nginx之动态压缩和静态压缩参考文](https://blog.csdn.net/fxss5201/article/details/106535475)
 [mac环境安装nginx](https://www.cnblogs.com/tugenhua0707/p/9863885.html)
 
 
