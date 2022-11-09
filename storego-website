@@ -287,7 +287,8 @@ plugins: [
 gzip on;
 gzip_static on;
 ```
-<div style="color: red;">
+
+```
 压缩开启之前 DOMContentLoaded: 1.47 s Load: 1.64 s | 2.35s
 压缩开启之后 DOMContentLoaded: 758 ms Load: 866 ms
 
@@ -296,9 +297,7 @@ vant.js 155k -----46k
 app.js  15k ----- 5k
 ...
 vant.css 190k ----- 72k
-
-</div>
-
+```
 
 app-h5商城项目利用vant vue 性能提升有一半的样子；
 
