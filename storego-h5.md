@@ -373,3 +373,70 @@ object-fit CSS 属性指定可替换元素（例如：<img> 或 <video>）的内
       style="width: 44vw; height:44vw;object-fit: cover;">
   </div>
 ```
+也可以通过设置 aspect-ratio: 1以及width:50%;来设置宽高比例1
+aspect-ratio宽高比，纵横比；aspect-ratio：宽/高
+```
+<div id="mydiv">
+    <img src="https://test-ap-cdn-paytrigger.shalltry.com/amatooke/file/0/1667961244153_CMP_20221109103403160.jpg"
+      alt="details" image="" style="object-fit: cover; aspect-ratio: 1;" width="50%">
+    <img src="https://test-ap-cdn-paytrigger.shalltry.com/amatooke/file/0/1667961244153_CMP_20221109103403160.jpg"
+      alt="details" image="" style="object-fit: cover; aspect-ratio: 1;" width="50%">
+</div>
+```
+	
+	
+13 富文本传递图片设置的vw样式被解析为px 为何？具体显示如下图；
+![image](https://user-images.githubusercontent.com/31762176/200728109-5a5d6e63-e2c7-4bd0-9368-b4411d738d98.png)
+
+需要注意的是，当给图片直接设置width属性等 需要注意单位问题；
+<b>在 HTML 4.01 中，宽度应该被定义为以像素为单位或者以包含元素的百分比为单位。在 HTML5 中，宽度值必须以像素为单位。</b>
+```
+<img src="https://test-ap-cdn-paytrigger.shalltry.com/amatooke/file/0/1667961244153_CMP_20221109103403160.jpg"
+      alt="details" image="" style="object-fit: cover;" width="50vw" height="50vw">
+会被浏览器识别为width和height均为50px
+```	
+14 富文本中img标签包含样式内容，vue项目中通过v-html插入后style消失？
+是因为xss 将标签的style过滤了，class都被过滤了，若想设置样式可以自己在文件中写，或者研究一下如何过滤xss
+
+```
+const tag = xss.getDefaultWhiteList()
+
+// tag.img = ['style'] 
+
+const myxss0 = new xss.FilterXSS()
+const testcontent0 = myxss0.process('<img src="https://test-ap-cdn-paytrigger.shalltry.com/amatooke/file/0/1667974618908_CMP_20221109141657571.jpg" alt="details" image="" style="width: 49vw;height:49vw;margin-left: 0.5vw;margin-right:0.5vw;object-fit: cover;">')
+console.log(testcontent0, '-------------testcontent0')
+
+const myxss1 = new xss.FilterXSS({tag})
+const testcontent1 = myxss1.process('<img src="https://test-ap-cdn-paytrigger.shalltry.com/amatooke/file/0/1667974618908_CMP_20221109141657571.jpg" alt="details" image="" style="width: 49vw;height:49vw;margin-left: 0.5vw;margin-right:0.5vw;object-fit: cover;">')
+console.log(testcontent1, '-------------testcontent1')
+
+const myxss2 = new xss.FilterXSS({
+  css: {
+    whiteList: {
+      style: true,
+      width: true,
+      background: false
+    }
+  }
+},tag)
+const testcontent2 = myxss2.process('<img src="https://test-ap-cdn-paytrigger.shalltry.com/amatooke/file/0/1667974618908_CMP_20221109141657571.jpg" alt="details" image="" style="width: 49vw;height:49vw;margin-left: 0.5vw;margin-right:0.5vw;object-fit: cover;">')
+console.log(testcontent2, '-------------testcontent2')
+	
+```
+[参考文章1：vue 解决v-html指令存在xss漏洞](https://juejin.cn/post/7089978256102801439)
+[参考文章2：XSS绕过姿势](https://cloud.tencent.com/developer/article/1480572)
+[参考文章3：XSS攻击绕过过滤方法大全（约100种）]()
+[参考文章4：How to use the xss/dist/xss.filterXSS function in xss](https://snyk.io/advisor/npm-package/xss/functions/xss%2Fdist%2Fxss.filterXSS)
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
