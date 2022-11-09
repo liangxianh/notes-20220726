@@ -282,10 +282,25 @@ plugins: [
 
 #### 9 利用webpack压缩打包出来的gz资源，服务器怎么开启加载gz资源还是原资源呢？
 
-在本地nginx中配置gzip on 发现不起作用；因为webpack压缩好的内容对nginx来说属于静态压缩，使用的是现成的扩展名为.gz的预压缩文件；
+在本地nginx中配置gzip on 发现不起作用；因为webpack压缩好的内容对nginx来说属于静态压缩，使用的是现成的扩展名为.gz的预压缩文件；如下即可
 ```
+gzip on;
+gzip_static on;
+```
+<div style="color: red;">
+压缩开启之前 DOMContentLoaded: 1.47 s Load: 1.64 s | 2.35s
+压缩开启之后 DOMContentLoaded: 758 ms Load: 866 ms
 
-```
+vendor.js 401k----118k
+vant.js 155k -----46k
+app.js  15k ----- 5k
+...
+vant.css 190k ----- 72k
+
+</div>
+
+
+app-h5商城项目利用vant vue 性能提升有一半的样子；
 
 #### 10 nginx进行压缩资源和webpack压缩
 
@@ -293,12 +308,56 @@ plugins: [
 关于 nginx 的 gzip ，可以分为两种：
 
 nginx 动态压缩，对每个请求先压缩再输出。
+```
+gzip on;
+    # gzip_comp_level 5;
+    # gzip_min_length 1k;
+    # gzip_buffers 4 16k;
+    # gzip_proxied any;
+    # gzip_vary on;
+    # gzip_types
+    #   application/javascript
+    #   application/x-javascript
+    #   text/javascript
+    #   text/css
+    #   text/xml
+    #   application/xhtml+xml
+    #   application/xml
+    #   application/atom+xml
+    #   application/rdf+xml
+    #   application/rss+xml
+    #   application/geo+json
+    #   application/json
+    #   application/ld+json
+    #   application/manifest+json
+    #   application/x-web-app-manifest+json
+    #   image/svg+xml
+    #   text/x-cross-domain-policy;
+    gzip_static on;  
+    # gzip_disable "MSIE [1-6]\.";  
+```
 nginx 静态压缩，使用现成的扩展名为 .gz 的预压缩文件。
+```
+gzip on;
+gzip_static on;
+```
+
+不同之处在于：
+
+* Webpack压缩会在构建运行期间一次压缩文件，然后将这些压缩版本保存到磁盘。
+
+* nginx在请求时压缩文件时，某些包可能内置了缓存,因此性能损失只发生一次(或不经常),但通常不同之处在于,这将在响应 HTTP请求时发生。
+
+* 对于实时压缩,让上游代理(例如 Nginx)处理 gzip和缓存通常更高效，因为它们是专门为此而构建的,并且不会遭受服务端程序运行时的开销(许多都是用C语言编写的) 。
+
+* 使用 Webpack的好处是， Nginx每次请求服务端都要压缩很久才回返回信息回来，不仅服务器开销会增大很多，请求方也会等的不耐烦。我们在 Webpack打包时就直接生成高压缩等级的文件，作为静态资源放在服务器上，这时将 Nginx作为二重保障就会高效很多。
+
+注：具体是在请求时实时压缩，或在构建时去生成压缩文件，就要看项目业务情况。
 
 
 [nginx之动态压缩和静态压缩参考文](https://blog.csdn.net/fxss5201/article/details/106535475)
+[开启双端gzip及优缺点](https://juejin.cn/post/6844903825585897485)
+
 [mac环境安装nginx](https://www.cnblogs.com/tugenhua0707/p/9863885.html)
-
-
 
 
