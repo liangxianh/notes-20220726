@@ -297,7 +297,10 @@ vant.js 155k -----46k
 app.js  15k ----- 5k
 ...
 vant.css 190k ----- 72k
+详细对比如下：
 ```
+![rRoF5w8Mu5](https://user-images.githubusercontent.com/31762176/200975597-ed630df5-dabd-4ec8-a8ea-92b110c13d26.jpg)
+![36sLfoeFKS](https://user-images.githubusercontent.com/31762176/200975617-e03b08c9-579a-4958-a0f5-371ba3cff649.jpg)
 
 app-h5商城项目利用vant vue 性能提升有一半的样子；
 
