@@ -69,8 +69,25 @@ git commit -m 'update .gitignore'
  ```
  
  ```
+ 
+### 6 git 摘取某个分支的commit到指定分支
 
+在测试分支提交了n多，想要把其中的一个commit 合并到master
+```
+1 现在test 分支 git log 查看指定分支的commitid copy
+2 git checkout master
+3 git cherry-pick commitid
+即可
+```
 
+### 7 merge
+```
+git pull origin 
+git merge origin/test
 
+git pull upstream 
+git merge upstream/master
+在哪个分支上面执行就是合并到当前分支
+```
 
 
