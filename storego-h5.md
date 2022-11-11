@@ -430,8 +430,109 @@ console.log(testcontent2, '-------------testcontent2')
 [参考文章4：How to use the xss/dist/xss.filterXSS function in xss](https://snyk.io/advisor/npm-package/xss/functions/xss%2Fdist%2Fxss.filterXSS)
 	
 	
+15 如下二维数组 进行数量相乘，属性拼接 js的逻辑转化
+```
+数据格式一：
+    let tree = [
+      {
+        k_s: 's1',
+        v: [
+          {
+            id: '1',
+            name: '红色',
+          },
+          {
+            id: '2',
+            name: '蓝色',
+          }
+        ],
+      },
+      {
+        k_s: 's2',
+        v: [
+          {
+            id: '3',
+            name: 'm',
+          },
+          {
+            id: '4',
+            name: 'l',
+          }
+        ],
+      },
+      {
+        k_s: 's3',
+        v: [
+          {
+            id: '5',
+            name: '#',
+          },
+          {
+            id: '6',
+            name: '@',
+          },
+          {
+            id: '7',
+            name: '¥',
+          },
+        ],
+      }
+    ]	
+转换为数据格式二如下：
+    let obj = [
+      {
+        s1: 1,
+        s2: 3,
+        specs: '红色/m'
+      },
+      {
+        s1: 1,
+        s2: 4,
+        specs: '红色/l'
+      },
+      {
+        s1: 2,
+        s2: 3,
+        specs: '蓝色/m'
+      },
+      {
+        s1: 2,
+        s2: 4,
+        specs: '蓝色/l'
+      }
+    ]
 	
-	
+```
+利用递归或者reduce
+```
+    let result = tree.reduce((pre, next) => {
+      if (pre.length === 0) {
+        for (let i = 0; i < next.v.length; i++) {
+          var k = { specs: next.v[i].name }
+          k[next.k_s] = next.v[i].id
+          pre.push(k);
+        }
+        return pre
+      }
+
+      const newPre = [];
+
+      for (let i = 0; i < next.v.length; i++) {
+        for (let j = 0; j < pre.length; j++) {
+          let k = {
+            ...pre[j],
+	    // 注意specs要在...pre[j]下面，可以覆盖pre本身的specs属性（否则每次都会是替换）
+            specs: `${pre[j].specs}/${next.v[i].name}`,
+          }
+          k[next.k_s] = next.v[i].id
+          newPre.push(k)
+        }
+      }
+
+      return newPre
+    }, [])
+    console.log(result)	
+```
 	
 	
 	
