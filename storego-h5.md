@@ -428,7 +428,7 @@ console.log(testcontent2, '-------------testcontent2')
 [参考文章2：XSS绕过姿势](https://cloud.tencent.com/developer/article/1480572)
 [参考文章3：XSS攻击绕过过滤方法大全（约100种）]()
 [参考文章4：How to use the xss/dist/xss.filterXSS function in xss](https://snyk.io/advisor/npm-package/xss/functions/xss%2Fdist%2Fxss.filterXSS)
-	
+[参考文章5：XSS插入绕过一些方式总结](https://blog.csdn.net/qq_29277155/article/details/51320064)
 	
 15 如下二维数组 进行数量相乘，属性拼接 js的逻辑转化
 ```
