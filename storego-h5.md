@@ -533,7 +533,40 @@ console.log(testcontent2, '-------------testcontent2')
     }, [])
     console.log(result)	
 ```
-	
+android 端实现利用递归
+```
+  public List<String> getString(List<List<String>> list, int index, List<String> resultList) {
+        if (list.size() == index) {
+            return resultList;
+        } else {
+            List<String> temp = new ArrayList<>();
+            if (resultList.size() == 0) {
+                temp = list.get(index);
+            } else {
+                List<String> list1 = list.get(index);
+                for (String s : resultList) {
+                    for (String s1 : list1) {
+                        String title = s + s1;
+                        temp.add(title);
+                    }
+                }
+            }
+            return getString(list, index + 1, temp);
+        }
+    }	
+        List<String> strings = new ArrayList<>();
+        strings.add("11");
+        strings.add("22");
+        List<String> strings1 = new ArrayList<>();
+        strings1.add("33");
+        strings1.add("44");
+
+        List<List<String>> list = new ArrayList<>();
+        list.add(strings);
+        list.add(strings1);
+        int size = list.size();
+        List<String> string = getString(list, 0, new ArrayList<>());
+```
 	
 	
 	
