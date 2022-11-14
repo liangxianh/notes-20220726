@@ -90,4 +90,23 @@ git merge upstream/master
 在哪个分支上面执行就是合并到当前分支
 ```
 
+### 8 git add了错误文件如何撤销
+```
+git status // 先看一下add 中的文件 
+git reset HEAD // 如果后面什么都不跟的话，就是上一次 add 里面的内容全部撤销
+git reset HEAD XXX/XXX/XXX.java // 就是对某个文件进行撤销
+```
+撤销完成之后，会变成add之前的样子，代码修改还存在
 
+### 9 git开发分支错了，如何切换，将修改的内容保存；
+```
+比如正常在test分支开发，结果开发中需要在master分支解决一个bug上线，结果就忘记切换了，下次打开直接就进行了开发，开发完后提交发现不应该在master分支；如果将内容移动到test分支上；
+未add的内容直接：
+git stash save
+git checkout test
+git stash pop
+
+已经add的内容：（可以执行8之后在执行9，未实践）
+????
+
+```
