@@ -186,8 +186,67 @@ Twitter 还拥有自己的类型的专有元数据协议([称为：Twitter cards
        Send mail with cc, bcc, subject and body
       </a>
       ```
-> 10 
+      每个字段的值必须是使用 URL 编码的，即使用百分号转义的非打印字符（不可见字符比如制表符、换行符、分页符）和空格。同时注意使用问号（?）来分隔主 URL 与参数值，以及使用 & 符来分隔 mailto: URL 中的各个参数。这是标准的 URL 查询标记方法。阅读 GET 方法以了解哪种 URL 查询标记方法是更常用的。
+      
+      
+      
     
+> 10 高级文本格式
+    > 描述列表（dl(description list) dt(description ) dd(description definition)）
+      
+      ```
+      <dl>
+       <dt>内心独白</dt>
+         <dd>戏剧中，某个角色对自己的内心活动或感受进行念白表演，这些台词只面向观众，而其他角色不会听到。</dd>
+       <dt>语言独白</dt>
+         <dd>戏剧中，某个角色把自己的想法直接进行念白表演，观众和其他角色都可以听到。</dd>
+     </dl>
+      ```
+      浏览器的默认样式会在描述列表的描述部分（description definition）和描述术语（description terms）之间产生缩进(dd元素回存在一个margin-inline-start样式，可以通过这个改变缩进的长度；)
+      
+    > 引用
+      HTML 也有用于标记引用的特性，至于使用哪个元素标记，取决于你引用的是一块还是一行。
+      块引用<blockquote>
+      行内引用<q>
+      引文cite 可以作为属性页可以作为标签：cite属性内容不会被浏览器显示、屏幕阅读器阅读，需使用 JavaScript 或 CSS，浏览器才会显示cite的内容。如果你想要确保引用的来源在页面上是可显示的，更好的方法是为<cite>元素附上链接：
+      ```
+      <blockquote cite="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/blockquote">
+        <p>The <strong>HTML <code>&lt;blockquote&gt;</code> Element</strong> (or <em>HTML Block
+         Quotation Element</em>) indicates that the enclosed text is an extended quotation.</p>
+      </blockquote>
+
+      <p>The quote element — <code>&lt;q&gt;</code> — is <q cite="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/q">intended
+        for short quotations that don't require paragraph breaks.</q> -- <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/q">
+        <cite>MDN q page</cite></a>.
+      </p>
+      ```
+   > 缩略语 
+     另一个你在 web 上看到的相当常见的元素是<abbr>——它常被用来包裹一个缩略语或缩写，并且提供缩写的解释（包含在title属性中）。让我们看看下面两个例子：
+      ```
+      <p><abbr title="美国国家航空航天局（National Aeronautics and Space Administration）">NASA</abbr> 做了一些动人心弦的事情。</p>
+      ```
+      这些代码的显示效果如下（当光标移动到项目上时会出现提示title内容）：
+   > 标记联系方式
+     HTML 有个用于标记联系方式的元素——<address>。它仅仅包含你的联系方式，例如：
+      ```
+      <address>
+        <p>Chris Mills, Manchester, The Grim North, UK</p>
+      </address>
+      ```
+   > 上标和下标<sup> 和<sub>
+   > 展示计算机代码
+      
+     * <code>: 用于标记计算机通用代码。
+     * <pre>: 用于保留空白字符（通常用于代码块）——如果您在文本中使用缩进或多余的空白，浏览器将忽略它，您将不会在呈现的页面上看到它。但是，如果您将文本包含在<pre></pre>标签中，那么空白将会以与你在文本编辑器中看到的相同的方式渲染出来。
+     * <var>: 用于标记具体变量名。
+     * <kbd>: 用于标记输入电脑的键盘（或其他类型）输入。
+     * <samp>: 用于标记计算机程序的输出。
+    
+  > 标记时间和日期
+  但是这些不同的格式不容易被电脑识别 — 假如你想自动抓取页面上所有事件的日期并将它们插入到日历中，<time> 元素允许你附上清晰的、可被机器识别的 时间/日期来实现这种需求。
+  ```
+  <time datetime="2016-01-20">2016 年 1 月 20 日</time>
+  ```
 > 11 
     
     
