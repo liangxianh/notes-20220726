@@ -127,7 +127,7 @@ Twitter 还拥有自己的类型的专有元数据协议([称为：Twitter cards
        <a href="https://www.mozilla.org/zh-CN/" title="可以将甚至是块级内容放到a内，转换为链接">
         <img src="mozilla-image.png" alt="链接至 Mozilla 主页的 Mozilla 标志">
        </a>
-      ```
+       ```
       
     * 可以设置title包含关于链接的补充信息，例如页面包含什么样的信息或需要注意的事情。鼠标悬浮回显示出来；
     * 可以自定义创建自己的示例链接，被a标签包含的内容
@@ -137,7 +137,7 @@ Twitter 还拥有自己的类型的专有元数据协议([称为：Twitter cards
       <p>点击打开<a href="../pdfs/project-brief.pdf">项目简介</a>。</p>
       ```
       
-    > 文档片段
+> 文档片段
       
       超链接除了可以链接到文档外，也可以链接到 HTML 文档的特定部分（被称为文档片段）。要做到这一点，你必须首先给要链接到的元素分配一个 id 属性。例如，如果你想链接到一个特定的标题，可以这样做：
       
@@ -151,7 +151,7 @@ Twitter 还拥有自己的类型的专有元数据协议([称为：Twitter cards
       链接到某个特定页面（不同文档）的特定片段
       <p>要提供意见和建议，请将信件邮寄至<a href="contacts.html#Mailing_address">我们的地址</a>。</p>
       
-    > 链接最佳实践：
+> 链接最佳实践：
       
       ```
       <p><a href="https://www.mozilla.org/firefox/">
@@ -159,7 +159,7 @@ Twitter 还拥有自己的类型的专有元数据协议([称为：Twitter cards
        </a></p>
       ```
       
-    > 链接到非 HTML 资源——留下清晰的指示
+> 链接到非 HTML 资源——留下清晰的指示
       
       ```
       <p><a href="https://www.example.com/large-report.pdf">
@@ -174,7 +174,7 @@ Twitter 还拥有自己的类型的专有元数据协议([称为：Twitter cards
        进入汽车游戏（需要 Flash 插件）
       </a></p>
       ```
-    > 在下载链接时使用 download 属性
+> 在下载链接时使用 download 属性
       
       当你链接到要下载的资源而不是在浏览器中打开时，你可以使用 download 属性来提供一个默认的保存文件名。下面是一个 Firefox 的 Windows 最新版本下载链接的示例：
       
@@ -185,7 +185,7 @@ Twitter 还拥有自己的类型的专有元数据协议([称为：Twitter cards
       </a>
       ```
       
-     > 电子邮件链接
+> 电子邮件链接
       
       ```
       <a href="mailto:nowhere@mozilla.org">向 nowhere 发邮件</a>
@@ -198,7 +198,6 @@ Twitter 还拥有自己的类型的专有元数据协议([称为：Twitter cards
       
       
       
-    
 > 10 高级文本格式
       
     > 描述列表（dl(description list) dt(description ) dd(description definition)）
