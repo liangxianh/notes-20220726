@@ -192,6 +192,7 @@ Twitter 还拥有自己的类型的专有元数据协议([称为：Twitter cards
       
     
 > 10 高级文本格式
+      
     > 描述列表（dl(description list) dt(description ) dd(description definition)）
       
       ```
@@ -202,13 +203,16 @@ Twitter 还拥有自己的类型的专有元数据协议([称为：Twitter cards
          <dd>戏剧中，某个角色把自己的想法直接进行念白表演，观众和其他角色都可以听到。</dd>
      </dl>
       ```
+      
       浏览器的默认样式会在描述列表的描述部分（description definition）和描述术语（description terms）之间产生缩进(dd元素回存在一个margin-inline-start样式，可以通过这个改变缩进的长度；)
       
     > 引用
+      
       HTML 也有用于标记引用的特性，至于使用哪个元素标记，取决于你引用的是一块还是一行。
       块引用<blockquote>
       行内引用<q>
       引文cite 可以作为属性页可以作为标签：cite属性内容不会被浏览器显示、屏幕阅读器阅读，需使用 JavaScript 或 CSS，浏览器才会显示cite的内容。如果你想要确保引用的来源在页面上是可显示的，更好的方法是为<cite>元素附上链接：
+      
       ```
       <blockquote cite="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/blockquote">
         <p>The <strong>HTML <code>&lt;blockquote&gt;</code> Element</strong> (or <em>HTML Block
@@ -220,20 +224,26 @@ Twitter 还拥有自己的类型的专有元数据协议([称为：Twitter cards
         <cite>MDN q page</cite></a>.
       </p>
       ```
+      
    > 缩略语 
+      
      另一个你在 web 上看到的相当常见的元素是<abbr>——它常被用来包裹一个缩略语或缩写，并且提供缩写的解释（包含在title属性中）。让我们看看下面两个例子：
       ```
       <p><abbr title="美国国家航空航天局（National Aeronautics and Space Administration）">NASA</abbr> 做了一些动人心弦的事情。</p>
       ```
       这些代码的显示效果如下（当光标移动到项目上时会出现提示title内容）：
+      
    > 标记联系方式
+      
      HTML 有个用于标记联系方式的元素——<address>。它仅仅包含你的联系方式，例如：
       ```
       <address>
         <p>Chris Mills, Manchester, The Grim North, UK</p>
       </address>
       ```
+      
    > 上标和下标<sup> 和<sub>
+      
    > 展示计算机代码
       
      * <code>: 用于标记计算机通用代码。
