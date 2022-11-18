@@ -108,41 +108,49 @@ Twitter 还拥有自己的类型的专有元数据协议([称为：Twitter cards
     * 无序列表（ul, li）和有序列表(ol,li)
     
    >  重点强调<em> 非常重要<strong>
+    
     这样做既可以让文档更加地有用，也可以被屏幕阅读器识别出来，并以不同的语调发出。而下面
     <b>, <i>, 和 <u> 粗体、斜体、下划线仅仅影响表象（不会对无障碍和seo有用）而且没有语义，被称为**表象元素（presentational elements）**并且不应该再被使用
       HTML5 用新的语义规则重新定义了 <b>、<i> 和 <u>,使得它们的语言显得稍微有点混乱。
     语义对无障碍，SEO（搜索引擎优化）等非常重要
      
       注意：使用下划线的忠告：因为我们常常会认为网页中的下划线代表着一个超链接**，**所以最好只用下划线来代表超链接。而在语义适合的情况下不得不使用<u>元素时，可以使用 CSS 来改变<u>元素对应的下划线的默认样式，从而和超链接的下划线区分开来。下面是一个具体的例子：
+      
       ```
       <p>
-      总有一天我会改掉写<u style="text-decoration-line: underline; text-decoration-style: wavy;">措字</u>的毛病。
-    </p>
+        总有一天我会改掉写<u style="text-decoration-line: underline; text-decoration-style: wavy;">措字</u>的毛病。
+      </p>
       ```
 > 8 创建超链接 
+      
       ```
        <a href="https://www.mozilla.org/zh-CN/" title="可以将甚至是块级内容放到a内，转换为链接">
         <img src="mozilla-image.png" alt="链接至 Mozilla 主页的 Mozilla 标志">
        </a>
       ```
+      
     * 可以设置title包含关于链接的补充信息，例如页面包含什么样的信息或需要注意的事情。鼠标悬浮回显示出来；
     * 可以自定义创建自己的示例链接，被a标签包含的内容
     * 可以链接到项目的其他页面直接星队路径即可
+      
       ```
       <p>点击打开<a href="../pdfs/project-brief.pdf">项目简介</a>。</p>
       ```
       
     > 文档片段
+      
       超链接除了可以链接到文档外，也可以链接到 HTML 文档的特定部分（被称为文档片段）。要做到这一点，你必须首先给要链接到的元素分配一个 id 属性。例如，如果你想链接到一个特定的标题，可以这样做：
+      
       ```
       <h2 id="Mailing_address">邮寄地址</h2>
+      ```
       
       同一个文档下的处理：
       <p>本页面底部可以找到<a href="#Mailing_address">公司邮寄地址</a>。</p>
       
       链接到某个特定页面（不同文档）的特定片段
       <p>要提供意见和建议，请将信件邮寄至<a href="contacts.html#Mailing_address">我们的地址</a>。</p>
-      ```
+      
     > 链接最佳实践：
       
       ```
