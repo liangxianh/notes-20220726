@@ -67,7 +67,12 @@ git commit -m 'update .gitignore'
 
 ### 5 git 删除分支
  ```
+ 删除本地分支
+ git branch -a
+ git branch -D amatookeptx
  
+ 删除远程分支
+ ？
  ```
  
 ### 6 git 摘取某个分支的commit到指定分支
