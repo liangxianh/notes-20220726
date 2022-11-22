@@ -1,4 +1,6 @@
-1 html 标签格式化元素
+### 一 html介绍
+
+> 1 html 标签格式化元素
 
 ```
 <b> font </b>
@@ -14,11 +16,13 @@
 ```
 
 
-2 meta  viewport作用
+> 2 meta  viewport作用
+
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 
-3 meta name content添加作者和描述
+> 3 meta name content添加作者和描述
+
 许多 <meta> 元素包含了 name 和 content 属性：
 
 name 指定了 meta 元素的类型；说明该元素包含了什么类型的信息。
@@ -33,7 +37,9 @@ started with developing web sites and applications.">
 指定包含关于页面内容的关键字的页面内容的描述是很有用的，因为它可能或让你的页面在搜索引擎的相关的搜索出现得更多（这些行为在术语上被称为：<b>搜索引擎优化，或 SEO</b>。）
 <b>description 也被使用在搜索引擎显示的结果页中</b>
 
-4 分享到facebook/twitter内容，比如MDN Web文档head中写如下内容，当你在 Facebook 上链接到 MDN 时，该链接将显示一个图像和描述：这为用户提供更丰富的体验。
+> 4 分享到facebook/twitter内容
+
+比如MDN Web文档head中写如下内容，当你在 Facebook 上链接到 MDN 时，该链接将显示一个图像和描述：这为用户提供更丰富的体验。
 Facebook 编写的元数据协议 [Open Graph Data](https://ogp.me/) 为网站提供了更丰富的元数据
 ```
 <meta property="og:image" content="https://developer.mozilla.org/static/img/opengraph-logo.png">
@@ -295,11 +301,51 @@ Twitter 还拥有自己的类型的专有元数据协议([称为：Twitter cards
  
  最好的方法就是让你的 HTML 页面通过 [Markup Validation Service](https://validator.w3.org/)。由 W3C（制定 HTML、CSS 和其他网络技术标准的组织）创立并维护的标记验证服务。把一个 HTML 文档加载至本网页并运行，网页会返回一个错误报告。网页可以接受网址、上传一个 HTML 文档，或者直接输入一些 HTML 代码。
  
+
+### 二 多媒体与嵌入
+
+> 1 图片 
+
+ * <img> src alt(备选文案) title属性 width height（单位无（默认px），px，% 都可以）
+ 
+ 可以通过搭配文字来解说图片如下两种方式：
+ ```
+ <div class="figure">
+  <img src="/images/dinosaur_small.jpg"
+     alt="一只恐龙头部和躯干的骨架，它有一个巨大的头，长着锋利的牙齿。"
+     width="400"
+     height="341">
+  <p>曼彻斯特大学博物馆展出的一只霸王龙的化石</p>
+</div>
+
+有一个更好的做法是使用 HTML5 的 <figure> 和 <figcaption> 元素，它正是为此而被创造出来的：为图片提供一个语义容器，在标题和图片之间建立清晰的关联
+<figure>
+  <img src="https://raw.githubusercontent.com/mdn/learning-area/master/html/multimedia-and-embedding/images-in-html/dinosaur_small.jpg"
+      alt="一只恐龙头部和躯干的骨架，它有一个巨大的头，长着锋利的牙齿。"
+      width="400"
+      height="341">
+  <figcaption>曼彻斯特大学博物馆展出的一只霸王龙的化石</figcaption>
+</figure>
+ ```
+ 
+ 
+ * css背景图
+ 
+ CSS 背景图片只是为了装饰 — 如果你只是想要在你的页面上添加一些漂亮的东西，来提升视觉效果，那 CSS 的做法是可以的。但是这样插入的图片完全没有语义上的意义，它们不能有任何备选文本，也不能被屏幕阅读器识别。这就是 HTML 图片有用的地方了。
+ ```
+ 
+ ```
+ 
+ <div style="color: red;">
+警告： 大多数图片是有版权的。不要在你的网页上使用一张图片，除非：
+    你是图片版权所有者
+    你有图片版权所有者明确的、书面上的使用授权
+    你有充分的证据证明这张图片是公共领域内的
+    侵犯版权是违法并且不道德的。此外，在得到授权之前永远不要把你的src属性指向其他人网站上的图片。这被称为"盗链（hotlinking）"。同样，盗取其他人的带宽也是违法的。而且这会降低你的页面的加载速度，而且图片可能会在不受你控制的情况下被移走或用别的令人尴尬的东西替换掉。
+  </div>
     
     
-    
-    
-    
+ > 2 视频和音频
     
     
     
