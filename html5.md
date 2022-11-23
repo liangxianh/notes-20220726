@@ -420,21 +420,23 @@ mediaElem.audioTracks.onaddtrack = function(event) {
  ```
     
     
- 3 从对象到iframe---其他嵌入技术 iframe object svg canvas 等
+3 从对象到iframe---其他嵌入技术 iframe object svg canvas 等
     
 在这篇文章中，我们将直接进入自主学习部分，让你立即体会到嵌入技术的实用性。大家都非常熟悉Youtube，但很多人不了解它所提供的一些分享功能。让我们来看看 Youtube 如何让我们通过<iframe>在页面中嵌入喜欢的视频。
 
-首先，去 Youtube 找一个喜欢的视频。
-在视频下方，你会看到一个共享按钮 - 点击查看共享选项。
-选择“ *嵌入”*选项卡，你将得到一些 <iframe> 代码——复制一下。
-粘贴到下面的输入框里，看看输出结果是什么。
-此外，你还可以试试在示例中嵌入 Google 地图：
+> 首先，去 Youtube 找一个喜欢的视频。
 
-去 Google 地图找一个喜欢的地图。
-点击 UI 左上角的“汉堡菜单”（三条水平线）。
-选择共享或嵌入地图选项。
-选择嵌入地图选项，这将给你一些<iframe>代码 - 复制一下。
-粘贴到下面的输入框，看看输出结果是什么。
+* 在视频下方，你会看到一个共享按钮 - 点击查看共享选项。
+* 选择“ *嵌入”*选项卡，你将得到一些 <iframe> 代码——复制一下。
+* 粘贴到下面的输入框里，看看输出结果是什么。
+* 此外，你还可以试试在示例中嵌入 Google 地图：
+
+> 去 Google 地图找一个喜欢的地图。
+
+* 点击 UI 左上角的“汉堡菜单”（三条水平线）。
+* 选择共享或嵌入地图选项。
+* 选择嵌入地图选项，这将给你一些<iframe>代码 - 复制一下。
+* 粘贴到下面的输入框，看看输出结果是什么。
 
 利用object可以把pdf嵌入到页面上
     
@@ -444,7 +446,7 @@ mediaElem.audioTracks.onaddtrack = function(event) {
   <object data="../pdfs/Statement.pdf" type="application/pdf" width="200" height="300" typemustmatch>
     <p>You don't have a PDF plugin, but you can <a href="myfile.pdf">download the PDF file.</a></p>
   </object>
-  <!--  注意object嵌入pdf在移动端屏幕会显示不出来  -->
+  注意object嵌入pdf在移动端屏幕会显示不出来
 ```
     
     
