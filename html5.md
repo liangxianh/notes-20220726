@@ -345,19 +345,107 @@ Twitter 还拥有自己的类型的专有元数据协议([称为：Twitter cards
   </div>
     
     
- > 2 视频和音频
+ > 2 视频和音频 <video> 和 <audio> 标签
+ 
+ ```
+ <video src="rabbit320.webm" controls>
+  <p>你的浏览器不支持 HTML5 视频。可点击<a href="rabbit320.mp4">此链接</a>观看</p>
+ </video>
+ 
+ <video> 标签内的内容
+这个叫做后备内容 — 当浏览器不支持 <video> 标签的时候，就会显示这段内容，这使得我们能够对旧的浏览器提供回退内容
+使用多个播放源以提高兼容性
+
+如果你尝试使用像 Safari 或者 Internet Explorer 这些浏览器来访问上面的链接。视频并不会播放，这是因为不同的浏览器对视频格式的支持不同
+
+<video controls>
+  <source src="rabbit320.mp4" type="video/mp4">
+  <source src="rabbit320.webm" type="video/webm">
+  <p>你的浏览器不支持 HTML5 视频。可点击<a href="rabbit320.mp4">此链接</a>观看</p>
+</video>
+浏览器将会检查 <source> 标签，并且播放第一个与其自身 codec 相匹配的媒体
+ ```
+* width 和 height
+
+你可以用属性控制视频的尺寸，也可以用 CSS 来控制视频尺寸。无论使用哪种方式，视频都会保持它原始的长宽比 — 也叫做纵横比。如果你设置的尺寸没有保持视频原始长宽比，那么视频边框将会拉伸，而未被视频内容填充的部分，将会显示默认的背景颜色。
+
+* autoplay
+这个属性会使音频和视频内容立即播放，即使页面的其他部分还没有加载完全。建议不要应用这个属性在你的网站上，因为用户们会比较反感自动播放的媒体文件。
+
+* loop
+这个属性可以让音频或者视频文件循环播放。同样不建议使用，除非有必要。
+
+* muted
+这个属性会导致媒体播放时，默认关闭声音。
+
+* poster
+这个属性指向了一个图像的 URL，这个图像会在视频播放前显示。通常用于粗略的预览或者广告。
+
+* preload
+这个属性被用来缓冲较大的文件，有 3 个值可选：
+```
+    "none" ：不缓冲
+    "auto" ：页面加载后缓存媒体文件
+    "metadata" ：仅缓冲文件的元数据
+```
+
+audio 不支持width/height以及poster属性
+
+> 你都可以在 Javascript 中调用 load() 方法来重置媒体。如果有多个由 <source> 标签指定的媒体来源，浏览器会从选择媒体来源开始重新加载媒体。
+```
+const mediaElem = document.getElementById("my-media-element");
+mediaElem.load();
+```
+    
+> 音轨增删事件
+```
+const mediaElem = document.querySelector("video");
+mediaElem.audioTracks.onaddtrack = function(event) {
+  audioTrackAdded(event.track);
+}
+```
+
+> 显示音轨文本
+文本轨道会使你的网站更容易被搜索引擎抓取到（SEO），由于搜索引擎的文本抓取能力非常强大，使用文本轨道甚至可以让搜索引擎通过视频的内容直接链接。
+以 .vtt 后缀名保存文件。
+用 <track> 标签链接 .vtt 文件， <track> 标签需放在 <audio> 或 <video> 标签当中，同时需要放在所有 <source> 标签之后。使用 kind 属性来指明是哪一种类型，如 subtitles、captions、descriptions。然后，使用 srclang 来告诉浏览器你是用什么语言来编写的 subtitles。
+
+ ```
+ <video controls>
+    <source src="example.mp4" type="video/mp4">
+    <source src="example.webm" type="video/webm">
+    <track kind="subtitles" src="subtitles_en.vtt" srclang="en">
+</video>
+
+ ```
     
     
+ 3 从对象到iframe---其他嵌入技术 iframe object svg canvas 等
     
+在这篇文章中，我们将直接进入自主学习部分，让你立即体会到嵌入技术的实用性。大家都非常熟悉Youtube，但很多人不了解它所提供的一些分享功能。让我们来看看 Youtube 如何让我们通过<iframe>在页面中嵌入喜欢的视频。
+
+首先，去 Youtube 找一个喜欢的视频。
+在视频下方，你会看到一个共享按钮 - 点击查看共享选项。
+选择“ *嵌入”*选项卡，你将得到一些 <iframe> 代码——复制一下。
+粘贴到下面的输入框里，看看输出结果是什么。
+此外，你还可以试试在示例中嵌入 Google 地图：
+
+去 Google 地图找一个喜欢的地图。
+点击 UI 左上角的“汉堡菜单”（三条水平线）。
+选择共享或嵌入地图选项。
+选择嵌入地图选项，这将给你一些<iframe>代码 - 复制一下。
+粘贴到下面的输入框，看看输出结果是什么。
+
+利用object可以把pdf嵌入到页面上
     
-    
-    
-    
-    
-    
-    
-    
-    
+```
+  <p>点击打开<a href="../pdfs/Statement.pdf">项目简介</a></p>
+
+  <object data="../pdfs/Statement.pdf" type="application/pdf" width="200" height="300" typemustmatch>
+    <p>You don't have a PDF plugin, but you can <a href="myfile.pdf">download the PDF file.</a></p>
+  </object>
+  <!--  注意object嵌入pdf在移动端屏幕会显示不出来  -->
+```
     
     
     
