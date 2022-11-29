@@ -451,5 +451,20 @@ mediaElem.audioTracks.onaddtrack = function(event) {
   注意object嵌入pdf在移动端屏幕会显示不出来
 ```
     
+iframe 尽可能减少攻击可以使用sandbox
+[参考文档介绍](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/iframe#attr-sandbox)
     
-    
+4 img svg 等
+```
+对于不支持 SVG（IE 8 及更低版本，Android 2.3 及更低版本）的浏览器，您可以从src属性引用 PNG 或 JPG，并使用srcset属性 只有最近的浏览器才能识别）来引用 SVG。在这种情况下，仅支持浏览器将加载 SVG - 较旧的浏览器将加载 PNG：
+
+<img src="equilateral.png" alt="triangle with equal sides" srcset="equilateral.svg">
+
+您还可以使用 SVG 作为 CSS 背景图像，如下所示。在下面的代码中，旧版浏览器会坚持他们理解的 PNG，而较新的浏览器将加载 SVG：
+
+background: url("fallback.png") no-repeat center;
+background-image: url("image.svg");
+background-size: contain;
+Copy to Clipboard
+
+```
