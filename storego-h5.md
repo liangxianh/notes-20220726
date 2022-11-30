@@ -567,10 +567,38 @@ android 端实现利用递归
         int size = list.size();
         List<String> string = getString(list, 0, new ArrayList<>());
 ```
+
+16 实现复制到剪切板
+
+```
+if (navigator.clipboard) {
+        // clipboard api 复制
+        navigator.clipboard.writeText(this.shareLink);
+      } else {
+        var textarea = document.createElement('textarea');
+        document.body.appendChild(textarea);
+        // 隐藏此输入框
+        textarea.style.position = 'fixed';
+        textarea.style.clip = 'rect(0 0 0 0)'; //deprecated
+        textarea.style.top = '10px';
+        // 赋值
+        textarea.value = this.shareLink;
+        // 选中
+        textarea.select();
+        // 复制
+        document.execCommand('copy', true);   // deprecated
+        // 移除输入框
+        document.body.removeChild(textarea);
+      }
+      // this.$toast('复制成功可以去粘贴分享了')
+      this.showShareTip = true
+    },
+```
+问题1: navigator.clipboard对象 undefined：
+答：undefined原因是因为navigator.clipboard对象只能在安全网络环境中才能使用，也就是，localhost中，或者https中才能正常使用，直接用ip地址访问时不可以的呢
 	
 	
-	
-	
-	
+问题2: 上述方法在浏览器中可以正常运行，但是在webview中失效
+答：
 	
 	
