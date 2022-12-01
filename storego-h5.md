@@ -599,6 +599,16 @@ if (navigator.clipboard) {
 	
 	
 问题2: 上述方法在浏览器中可以正常运行，但是在webview中失效
-答：
+答：可以在android添加方法(需要客户端帮忙，说是添加无效)
+	[参考文档1](https://github.com/microsoft/vscode/pull/116597)
+	[参考文档2](https://www.lmlphp.com/user/151035/article/item/4336111/)
+
 	
+实现方式二，[参考](https://blog.csdn.net/qq_58340302/article/details/124480086)
+	![image](https://user-images.githubusercontent.com/31762176/204955106-34881a5c-1545-4d60-963c-6bd6aafe3eb4.png)
+
+实现方式三 [参考](https://blog.csdn.net/qq_58340302/article/details/124745813?csdn_share_tail=%7B%22type%22%3A%22blog%22%2C%22rType%22%3A%22article%22%2C%22rId%22%3A%22124745813%22%2C%22source%22%3A%22qq_58340302%22%7D&ctrtid=BPpOS)
+   安装clipboard插件
+实现方式四 [参考](https://github.com/Inndy/vue-clipboard2) (最终选择的方案，亲测有效)
+[详细关于粘贴板的api介绍参见](https://www.ruanyifeng.com/blog/2021/01/clipboard-api.html)
 	
