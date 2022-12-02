@@ -64,3 +64,6 @@
 
 [盒模型](https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Building_blocks/The_box_model#%E8%A1%A5%E5%85%85%EF%BC%9A%E5%86%85%E9%83%A8%E5%92%8C%E5%A4%96%E9%83%A8%E6%98%BE%E7%A4%BA%E7%B1%BB%E5%9E%8B)
 [外边距会重叠](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Box_Model/Mastering_margin_collapsing)
+
+5 处理不同方向的文本
+[参考文献](https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Building_blocks/Handling_different_text_directions)
