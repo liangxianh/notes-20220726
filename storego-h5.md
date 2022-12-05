@@ -615,3 +615,18 @@ if (navigator.clipboard) {
 实现方式四 vue-clipboard2插件 [参考](https://github.com/Inndy/vue-clipboard2) (最终选择的方案，亲测有效)
 [详细关于粘贴板的api介绍参见](https://www.ruanyifeng.com/blog/2021/01/clipboard-api.html)
 	
+17 在facebook里面发布帖子粘贴我们的链接，带有#/ 将会影响我门自己的参数
+	若链接的形式是https://www.baidu.com/#/good?mypar1=1 
+在facebook里面直接点击 在/#/中间将会被插入  /?fbclid=IwAR3c_7BUfLQINYdjLbjLgFcvvlfu_b_Xkp9GmO5hP7Df28xLnUR5E7eINTI#/good?mypar1=1
+	
+若是链接形式是https://www.baidu.com/good?aWQ9MTIxJnNob3BJZD0xNCZzaGFyZXJJZD0yNQ=%3D#/
+	https://www.baidu.com/good?aWQ9MTIxJnNob3BJZD0xNCZzaGFyZXJJZD0yNQ=%3D&fbclid=IwAR0l2bfcttGHm99C253Eafj8nsDdcbu5yGROrh_0ElNtp1ZfuZdEk5j_7Oc#/
+仍然会在#/之前插入内容：
+即hash模式的路有在facebook分享的链接路径一定要注意；history模式一般回在参数后面直接赘&fbclid=，但是带有#/ 将会在之前插入
+
+	
+	
+	
+	
+	
+	
