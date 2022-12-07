@@ -115,3 +115,45 @@ git stash pop
 ????
 
 ```
+
+### 10 git 开发了好几个版本已经add commit push到远程了，想要删掉最近几次的commit
+```
+git log //查看要回退到的制定的commitid
+git reset --soft commitid       ||        git reset --hard commitid (近几次提交的变化直接被清空)
+
+git log  // 查看不到进几次的提交
+git status   // 近几次提交的变化任然存在 如下所示：
+```
+![image](https://user-images.githubusercontent.com/31762176/206104404-c6d431ae-5d61-4e20-9d20-3a7e376455bd.png)
+
+```
+git restore --staged .   // 从暂存区删除，变为如下样子：
+
+```
+![image](https://user-images.githubusercontent.com/31762176/206104862-d926152f-4017-4ab7-a264-51cfd02e4d16.png)
+
+```
+git restore .   // 丢弃工作区的改动
+git status
+位于分支 test
+您的分支落后 'origin/test' 共 4 个提交，并且可以快进。
+  （使用 "git pull" 来更新您的本地分支）
+
+无文件要提交，干净的工作区
+```
+以上只是将本地代码恢复到了想要的状态，但是不能直接 push到远程，只是回提示 本地落后远程几个分支；
+```
+git push origin test 会报错如下：
+```
+![image](https://user-images.githubusercontent.com/31762176/206106276-4ae21fcc-0386-4e68-a492-73369b483c51.png)
+
+需要使用：
+```
+git push origin test --force  //强制提交当前版本号。
+```
+至此，撤销push提交完成
+
+[参考文献](https://blog.csdn.net/qq_45503196/article/details/126089133)
+
+
+
