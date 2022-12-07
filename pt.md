@@ -251,6 +251,38 @@ baseurl后面多加入了‘/ ’导致报出该错误
     
 ![image](https://user-images.githubusercontent.com/31762176/206077879-59e94b8e-e238-453c-8f9c-065f19ad931d.png)
 
+查找了一些资源 发现可能是因为vite.config.js里面的base配置问题,删掉base 利用nginx 配置；
+base 配置公共基础路径；
+```
+现有的 
+base: '/my-project/',
+
+利用docker部署的conf资源修改 fail
+由
+location / {
+    root /usr/share/nginx/html;
+    ndex  index.html index.htm;
+    try_files $uri $uri/ /index.html;
+}
+修改为如下的location：
+server {
+    server_name www.baidu.com;
+
+    server_tokens off;
+
+    location /my-api {
+        proxy_pass https://www.api.com/;
+    }
+ 
+    location /my-project/ {
+        root /usr/share/nginx/html/;
+        index  index.html index.htm;
+        try_files $uri $uri/ /index.html;
+    }
+}
+
+```
+观察情况一段时间
     
     
     
