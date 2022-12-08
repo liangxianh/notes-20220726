@@ -551,13 +551,35 @@ export function downloadFile(url, filename) {
         this.$message.error(msg)
       })
 ```
-上述方案存在跨域问题
+上述方案存在跨域问题(需要服务端配合允许跨域访问)
 ![image](https://user-images.githubusercontent.com/31762176/206342055-031a5fa0-3790-4e59-8947-0d198c18e856.png)
 [参考文章1](https://blog.csdn.net/cc_want/article/details/116174106)
 [参考文章2](https://blog.csdn.net/m0_61570521/article/details/125760274)
 [参考文章3](https://juejin.cn/post/6844904069958467592)
 
-
+或者如下接口返回的是数据流，而不是数据的url
+```
+    this.$api.myapi(data).then((res) => {
+        const blob = new Blob([res.data], { type: 'application/vnd.ms-excel;charset=utf-8' });
+        const fileName = 'yourneedname';
+        // for IE
+        if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+          window.navigator.msSaveOrOpenBlob(blob, fileName);
+        } else {
+          // for Non-IE
+          const objectUrl = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = objectUrl;
+          link.setAttribute('download', fileName);
+          document.body.appendChild(link);
+          link.click();
+          window.URL.revokeObjectURL(link.href);
+        }
+        this.loading = false;
+      }).catch(() => {
+        this.loading = false;
+      });
+```
 
 
 
