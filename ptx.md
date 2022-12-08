@@ -509,6 +509,53 @@ export default defineConfig({
 直接移动端打开开发者模式即可；
 
 
+### 18 修改下载文件的文件名称
+
+```
+// 定义方法
+export function downloadFile(url, filename) {
+  function getBlob(url) {
+    return new Promise((resolve) => {
+      const XML = new XMLHttpRequest();
+      XML.open('GET', url, true)
+      XML.responseType = 'blob'
+      XML.onload = (() => {
+        if (XML.status === 200) {
+          resolve(XML.response)
+        }
+      })
+      XML.send()
+    })
+  }
+  function saveAs(blob, filename) {
+    const elelink = document.createElement('a')
+    elelink.style.display = 'none'
+    elelink.download = filename
+    elelink.href = window.URL.createObjectURL(blob)
+    document.body.appendChild(elelink)
+    elelink.click()
+    document.body.removeChild(elelink)
+  }
+  getBlob(url).then((blob) => {
+    saveAs(blob, filename)
+  })
+}
+
+     // 获取下载链接后使用
+     downloadApi({ exportId: obj.exportId }).then((res) => {
+        if (res.code === 200) {
+          // 该方式存在跨域问题；
+          this.downloadFile(res.result.fileUrl, res.result.fileName)
+        }
+      }).catch((msg) => {
+        this.$message.error(msg)
+      })
+```
+上述方案存在跨域问题
+![image](https://user-images.githubusercontent.com/31762176/206342055-031a5fa0-3790-4e59-8947-0d198c18e856.png)
+[参考文章1](https://blog.csdn.net/cc_want/article/details/116174106)
+[参考文章2](https://blog.csdn.net/m0_61570521/article/details/125760274)
+[参考文章3](https://juejin.cn/post/6844904069958467592)
 
 
 
