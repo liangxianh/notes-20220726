@@ -156,4 +156,16 @@ git push origin test --force  //强制提交当前版本号。
 [参考文献](https://blog.csdn.net/qq_45503196/article/details/126089133)
 
 
+### 11 git 更换文件名大小写无法提交问题
 
+```
+1.使用 git config core.ignorecase命令查看当前git是否忽略了大小写
+git config core.ignorecase
+如果显示为true，则忽略大小写
+
+2.使用git config core.ignorecase false命令,  设置为false
+
+git config core.ignorecase false
+
+3.再次提交文件时就能够将更换了大小写名称的文件提交上去了
+```
