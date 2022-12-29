@@ -625,6 +625,16 @@ if (navigator.clipboard) {
 即hash模式的路有在facebook分享的链接路径一定要注意；history模式一般回在参数后面直接赘&fbclid=，但是带有#/ 将会在之前插入
 
 	
+18 实现桌面拖拽组件
+```
+	
+```
+	
+	
+	
+	
+	
+	
 	
 	
 	
