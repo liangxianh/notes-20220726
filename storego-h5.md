@@ -627,8 +627,55 @@ if (navigator.clipboard) {
 	
 18 实现桌面拖拽组件
 ```
-	
+
 ```
+	
+19 postmessage进行数据传递时需要注意子iframe需要onload后才可以成功的进行传递，顾需要监听子iframe onload后在进行数据post
+```
+父组件
+          let authIframe = document.getElementById('authIframe')
+	  this.iframeUrl = res.result.iframeUrl
+          if (authIframe.attachEvent){
+            authIframe.attachEvent("onload", ()=>{
+              res.result.dataDetail.mytype = '__validToken'
+              authIframe.contentWindow.postMessage(JSON.stringify(res.result.dataDetail), '*')
+            });
+          } else {
+            authIframe.onload = ()=>{
+              res.result.dataDetail.mytype = '__validToken'
+              authIframe.contentWindow.postMessage(JSON.stringify(res.result.dataDetail), '*')
+            };
+          }
+	
+子组件html
+      mounted() {
+        this.getContractDetail();
+        window.addEventListener('message', this.receiveMsg, false)
+      },
+      methods: {
+        receiveMsg(event) {
+          if (event.data) {
+            const temp = JSON.parse(event.data)
+            if (temp && temp.mytype == '__validToken') {
+              console.log('inner', temp)
+              this.$nextTick(() => {
+                this.$set(this, 'dataDetail', temp)
+              })
+            }
+          }
+        },
+        getContractDetail() {
+          if (window.AndroidNativeMethod && window.AndroidNativeMethod.getDetail) {
+            let dataDetailDTO = window.AndroidNativeMethod.getDetail();
+            if (dataDetailDTO) {
+              this.dataDetail = JSON.parse(dataDetailDTO);
+            }
+          }
+        },	
+```
+	
+20 van-uploader在h5中浏览器打开可以正常使用，但是在webview中打开h5项目中改组件不能正常点击使用；
+	
 	
 	
 	
