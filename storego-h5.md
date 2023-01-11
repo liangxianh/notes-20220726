@@ -675,8 +675,13 @@ if (navigator.clipboard) {
 ```
 	
 20 van-uploader在h5中浏览器打开可以正常使用，但是在webview中打开h5项目中改组件不能正常点击使用；
+
+ 在webview中打开h5页面有上传文件的组件需要客户端配合重新某些方法
 	
-	
+21 webview中打开h5页面在h5页面中跳转到新的页面会被浏览器打开
+
+ 在需要客户端去重载webview，由客户端去控制
+h5页面跳转 使用location.href/location.repalce,若是deeplink链接 利用a标签去打开即可；其他的跳转等 需要客户端去限制和处理
 	
 	
 	
