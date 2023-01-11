@@ -684,7 +684,11 @@ if (navigator.clipboard) {
 h5页面跳转 使用location.href/location.repalce,若是deeplink链接 利用a标签去打开即可；其他的跳转等 需要客户端去限制和处理
 	
 	
+22 window.location.href与location.replace区别
+replace只是当前页面不计入window.history,但是使用这两种方式进行跳转，即使域名不同仍然不能进行history清空；可以根据设置变量来控制不同来源的返回操作；
+
 	
+23
 	
 	
 	
