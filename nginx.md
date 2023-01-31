@@ -37,3 +37,34 @@
 ![image](https://user-images.githubusercontent.com/31762176/215443551-9e839abf-9f51-4c26-8c4e-3ba49da7ad4d.png)
 
 
+
+Nginx配置proxy_pass转发的 / 路径问题
+在nginx中配置proxy_pass时，如果是按照^~匹配路径时，要注意 proxy_pass 后的 url 最后的 / :
+
+* 当加上了 /，相当于绝对根路径，则 nginx 不会把 location 中匹配的路径部分代理走
+* 如果没有 /，相当于相对路径，则会把匹配的路径部分也给代理走
+
+示例
+
+> 有 /
+```
+location /publicPath/ {
+    proxy_pass https://api.*.com/;
+ }
+```
+如上面的配置，如果请求的 url 是 http://your_domain/publicPath/add，会被代理成 http://api.*.com/add
+
+> 无 /
+```
+location /publicPath/ {
+    proxy_pass https://api.*.com;
+ }
+```
+如上面的配置，如果请求的 url 是 http://your_domain/publicPath/add，会被代理成 http://api.*.com/publicPath/add
+
+当然，我们可以用如下的 rewrite 来实现 / 的功能：
+```
+location /publicPath/ {
+    proxy_pass https://api.*.com;
+    rewrite: (path) => path.replace(/^\/api/, ''),
+ }
