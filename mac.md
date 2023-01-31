@@ -33,7 +33,9 @@ nginx -t
 重启nginx 的方法
 1 brew services restart nginx
 
-2 
+停止nginx方法
+brew services stop nginx  
+brew services kill nginx  
 ```
 ![image](https://user-images.githubusercontent.com/31762176/200459295-116dca39-a677-4020-8f93-e1f846a05539.png)
 
@@ -41,5 +43,7 @@ nginx -t
 Docroot为 /opt/homebrew/var/www,
 在/opt/homebrew/etc/nginx/nginx.conf 配置文件中默认的端口为8080，
 且nginx将在/opt/homebrew/etc/nginx/servers/ 目录中加载所有文件。并且我们可以通过最简单的命令'nginx' 来启动nginx.
+
+可以直接open /opt/homebrew/etc/ngxin 或者cd 路径找到文件进行编辑
 
 [mac环境安装nginx参考文档1](https://www.cnblogs.com/tugenhua0707/p/9863885.html)
