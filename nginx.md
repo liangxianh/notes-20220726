@@ -98,3 +98,16 @@ location /publicPath/ {
         }
         # 正常访问的  m.*.com/publicPath/v1/add ---> https://test.*.com/publicPath/v1/add
  ```
+
+## nginx 基础知识整理
+
+1 http反向代理：作为web服务器
+
+正向代理：是代理客户端的，我门知道目标服务器的链接，但是无法直接访问目标服务器，必须通过代理的方式（比如翻墙访问google）
+
+反向代理：是代理服务端的，客户端对代理是无感知的类似nginx接口转发
+
+[参考文章](https://juejin.cn/post/6865213076174536712)
+
+
+
