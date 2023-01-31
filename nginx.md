@@ -68,3 +68,33 @@ location /publicPath/ {
     proxy_pass https://api.*.com;
     rewrite: (path) => path.replace(/^\/api/, ''),
  }
+ 
+  以本地链接测试环境进行测试。。
+ ```
+        # 405
+        location  /publicPath {
+          proxy_pass https://test.*.com/;
+        }
+
+        # 405
+        location  /publicPath/ {
+          proxy_pass https://test.*.com/;
+        }
+        # 不能访问的  m.*.com/publicPath/v1/add ---> https://test.*.com/v1/add
+        
+        # 200正常访问
+        location  /publicPath {
+          proxy_pass https://test.*.com;
+        }
+
+        # 200正常访问
+        location  /publicPath/ {
+          proxy_pass https://test.*.com;
+        }
+
+        # 200正常访问
+        location  /publicPath/ {
+          proxy_pass https://test.*.com/publicPath/;
+        }
+        # 正常访问的  m.*.com/publicPath/v1/add ---> https://test.*.com/publicPath/v1/add
+ ```
