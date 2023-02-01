@@ -103,11 +103,34 @@ location /publicPath/ {
 1 web---pod（nginx）----- api.server.com (多个ip)
 若nginx缓存了某个ip了，但是该ip不服务了就会造成这种情况
 
-尝试的解决方法在.conf文件内部配置
+尝试的解决方法在.conf文件内部配置  resolver  8.8.8.8  valid=10s;
 
 ```
- resolver  8.8.8.8  valid=10s;
+?????????
+
+server {
+    server_name www.*.com;
+
+    resolver  8.8.8.8  valid=10s;
+    
+    server_tokens off;
+    
+    gzip on;
+    gzip_static on;
+
+    location /publicPath/ {
+        proxy_pass https://api.*.com;
+    }
+
+    location / {
+        root /usr/share/nginx/html;
+        index  index.html index.htm;
+        try_files $uri $uri/ /index.html;
+    }                         
+} 
 ```
+[参考文章](https://www.nginx-cn.net/products/nginx/load-balancing/)
+
 
 ## nginx 基础知识整理
 
