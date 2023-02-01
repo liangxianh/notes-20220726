@@ -99,6 +99,15 @@ location /publicPath/ {
         # 正常访问的  m.*.com/publicPath/v1/add ---> https://test.*.com/publicPath/v1/add
  ```
 
+原因总结
+1 web---pod（nginx）----- api.server.com (多个ip)
+若nginx缓存了某个ip了，但是该ip不服务了就会造成这种情况
+
+尝试的解决方法在.conf文件内部配置
+```
+ resolver  8.8.8.8  valid=10s;
+```
+
 ## nginx 基础知识整理
 
 1 http反向代理：作为web服务器
