@@ -104,6 +104,7 @@ location /publicPath/ {
 若nginx缓存了某个ip了，但是该ip不服务了就会造成这种情况
 
 尝试的解决方法在.conf文件内部配置
+
 ```
  resolver  8.8.8.8  valid=10s;
 ```
