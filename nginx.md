@@ -99,9 +99,25 @@ location /publicPath/ {
         # 正常访问的  m.*.com/publicPath/v1/add ---> https://test.*.com/publicPath/v1/add
  ```
 
-原因总结
-1 web---pod（nginx）----- api.server.com (多个ip)
+可能原因总结 
+1 web--->pod（nginx）-----> api.server.com (多个ip)
 若nginx缓存了某个ip了，但是该ip不服务了就会造成这种情况
+验证:进入终端即nginx上；
+利用dig或者nslookup命令看看配置的域名IP是不是一直在变
+
+![image](https://user-images.githubusercontent.com/31762176/216212121-8e1d2e5d-a6a3-4f2c-9bfe-48bec74b6ee2.png)
+输入
+nslookup baidu.com
+
+输出部分:
+最上面的 Server 和 Address 是该词查询的 DNS 服务器。可以自己指定，也可以默认。
+默认情况下 DNS 服务器的端口为53
+非权威应答（Non-authoritative answer）意味着answer来自于其他服务器的缓存，而不是权威的Baidu DNS服务器。缓存会根据 ttl（Time to Live）的值定时的进行更新。这个链接或许对你有所帮助: [What is the meaning of the non-authoritative-answer?](https://serverfault.com/questions/413124/dns-nslookup-what-is-the-meaning-of-the-non-authoritative-answer)
+注意到，在对http://google.com进行查询时，Mac 返回的结果并没有非权威服务器提示，而Windows下的命令却提示了，这是因为 8.8.8.8 这个 DNS 服务器正是谷歌的权威名字服务器，可以使用nslookup -ty=ptr 8.8.8.8验证，ptr也是一种记录类型，可以用进行反向DNS解析(Reverse DNS Lookup)，拓展链接: reverse-dns-lookup
+
+缓存会根据 ttl（Time to Live）的值定时的进行更新
+
+[nslookup参考](https://zhuanlan.zhihu.com/p/361451835)
 
 尝试的解决方法在.conf文件内部配置  resolver  8.8.8.8  valid=10s;
 
@@ -129,6 +145,10 @@ server {
     }                         
 } 
 ```
+<b>使用Nginx resolver注意点
+使用 resolver 功能，通过 resolver 这种方式来实现nginx动态解析代理域名，相当于放弃了upstream，也就无法使用upstream相关配置功能，比如回话保持、健康检测等等
+针对如下妖怪问题，建议严谨测试后再上线。</b>
+
 [参考文章](https://www.nginx-cn.net/products/nginx/load-balancing/)
 
 
@@ -140,7 +160,7 @@ server {
 
 反向代理：是代理服务端的，客户端对代理是无感知的类似nginx接口转发
 
-[参考文章](https://juejin.cn/post/6865213076174536712)
-
+[参考文章1](https://juejin.cn/post/6865213076174536712)
+[参考文章2](https://www.cnblogs.com/tugenhua0707/p/9863885.html)
 
 
