@@ -704,35 +704,30 @@ replace只是当前页面不计入window.history,但是使用这两种方式进�
 
 ```
 nginx缓存了转发域名的ip（但是一般情况下，nginx转发是域名的情况下，ip是稳定的），若ip对应的服务挂掉了，没有reload或者更新缓存那连接就会一直存在问题；（dig 或nslookup可以在nginx上查看转发域名的ip是不是一直在变化）
+	
 
 解决方案：设置resolve 会自动监控ip的变更；
-	开源版的NGINX提供了resolver这种动态的dns解决方案。核心思想是NGINX自身充当dns的客户端进行动态dns解析。
-
+	
+	
+开源版的NGINX提供了resolver这种动态的dns解决方案。核心思想是NGINX自身充当dns的客户端进行动态dns解析。
+```
 http {
-
-server {
-
-                            listen 80;
-
-                            resolver 8.8.8.8 valid=10s;
-
-                            set   $test   private.server1.com.cn;
-
-                            location / {
-
-                                proxy_pass http://$test;
-
-                            }
-
-                    }
-
-            }
-
+ server {
+   listen 80;
+    resolver 8.8.8.8 valid=10s;
+    set   $test   private.server1.com.cn;
+    location / {
+        proxy_pass http://$test;
+    }
+  }
+}
+```
 如上配置，当访问服务器的根目录时，会把请求转移到test变量定义的服务器中。而且，这个test变量定义的服务器private.server1.com.cn会通过resolver 定义的dns 服务器进行动态解析。在此配置中，通过resolver得到的解析结果有效期是10秒。有效期过后，再次访问根目录时就会对域名进行重新解析。
 
-需要注意的是，如果proxy_pass后面是一个域名而不是一个变量，那么对域名的解析也是发生在启动解析期间，无法完成动态域名解析的功能。
+<b>需要注意的是，如果proxy_pass后面是一个域名而不是一个变量，那么对域名的解析也是发生在启动解析期间，无法完成动态域名解析的功能。</b>
 
 ```
+详细见nginx笔记
 [nginx dns解析参考文章](https://www.nginx.org.cn/article/detail/356)
 	
 	
