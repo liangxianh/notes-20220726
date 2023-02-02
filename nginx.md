@@ -145,6 +145,31 @@ server {
     }                         
 } 
 ```
+
+但是在另一篇文章中感觉不是这个样子：
+开源版的NGINX提供了resolver这种动态的dns解决方案。核心思想是NGINX自身充当dns的客户端进行动态dns解析。
+
+```
+http {
+  server {
+      listen 80;
+      resolver 8.8.8.8 valid=10s;
+      set   $test   private.server1.com.cn;
+      location / {
+         proxy_pass http://$test;
+      }
+   }
+}
+```
+
+如上配置，当访问服务器的根目录时，会把请求转移到test变量定义的服务器中。而且，这个test变量定义的服务器private.server1.com.cn会通过resolver 定义的dns 服务器进行动态解析。在此配置中，通过resolver得到的解析结果有效期是10秒。有效期过后，再次访问根目录时就会对域名进行重新解析。
+
+<b>需要注意的是，如果proxy_pass后面是一个域名而不是一个变量，那么对域名的解析也是发生在启动解析期间，无法完成动态域名解析的功能。</b>
+
+
+[参考原文链接]https://www.nginx.org.cn/article/detail/356
+
+
 <b>使用Nginx resolver注意点
 使用 resolver 功能，通过 resolver 这种方式来实现nginx动态解析代理域名，相当于放弃了upstream，也就无法使用upstream相关配置功能，比如回话保持、健康检测等等
 针对如下妖怪问题，建议严谨测试后再上线。</b>
