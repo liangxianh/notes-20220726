@@ -731,7 +731,8 @@ http {
 [nginx dns解析参考文章](https://www.nginx.org.cn/article/detail/356)
 	
 	
-	
+25 vue js 自动获取最新地址生成二维码；
+[参考文献](https://zhuanlan.zhihu.com/p/422320062)
 	
 	
 	
