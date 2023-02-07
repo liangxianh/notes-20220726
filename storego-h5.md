@@ -738,7 +738,59 @@ http {
 	
 navigator 里面包含的信息（浏览器的语音 等）
 document里面包含的信息（可以获取分辨率） 
-	
+Window.devicePixelRatio 返回当前显示设备的物理像素分辨率与CSS 像素分辨率之比
 
+通过按照插件也可以获取model brand 等信息
+```
+device-detector-js
+
+npm install device-detector-js
+	
+import DeviceDetector from "device-detector-js";
+	
+const deviceDetector = new DeviceDetector();
+const userAgent = window.navigator.userAgent;
+const device = deviceDetector.parse(userAgent);
+console.log('device---', device);
+
+打印的结果如下：
+{
+    "client": {
+        "type": "browser",
+        "name": "Chrome Mobile",
+        "version": "87.0",
+        "engine": "Blink",
+        "engineVersion": ""
+    },
+    "os": {
+        "name": "Android",
+        "version": "8.0",
+        "platform": ""
+    },
+    "device": {
+        "type": "smartphone",
+        "brand": "Samsung",
+        "model": "Galaxy S8+"
+    },
+    "bot": null
+}
+	
+[device-detector](https://www.npmjs.com/package/device-detector-js)	
+```
+	
+27 DOCTYPE html 设置与否的不同
+```
+有<!DOCTYPE html>的时候，element.style.top=10px 后面必须要跟单位 否则不生效
+无<!DOCTYPE html>的时候，element.style.top=10 没有单位默认是px
+	
+```
+
+28 vue项目在mainjs中设置A对象变量，在子vue页面中去更新A内部分内容，在其他页面获取？有多个入口文件，顾需要多次赋值么？
+	
+	
+	
+	
+	
+	
 	
 	
