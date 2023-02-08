@@ -1,8 +1,8 @@
 ### js 数据类型
 
 * 基本数据类型 Number String Boolean Undefined null symbol
-*引用数据类型 object array function 
-*其他引用数据类型 Date Regexp map set等 
+* 引用数据类型 object array function 
+* 其他引用数据类型 Date Regexp map set等 
 
   Date RegExp对象赋值规则同基本类型一致  Map Set对象赋值规则同引用类型一致
   
