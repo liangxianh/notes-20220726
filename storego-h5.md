@@ -788,6 +788,62 @@ console.log('device---', device);
 28 vue项目在mainjs中设置A对象变量，在子vue页面中去更新A内部分内容，在其他页面获取？有多个入口文件，顾需要多次赋值么？
 	
 	
+29 获取浏览器的名称和版本
+
+```
+function BrowserInfo() {
+  let userAgent = self.navigator.userAgent;
+  if (/edge\/([\d\.]+)/i.exec(userAgent))
+    return { name: "Edge", version: /edge\/([\d\.]+)/i.exec(userAgent)[1] || '' }
+  if (/edg\/([\d\.]+)/i.exec(userAgent))
+    return { name: "Edge(Chromium)", version: /edg\/([\d\.]+)/i.exec(userAgent)?/edg\/([\d\.]+)/i.exec(userAgent)[1]: '' }
+  if (/msie/i.test(userAgent))
+    return { name: "Internet Explorer", version: /msie ([\d\.]+)/i.exec(userAgent)?/msie ([\d\.]+)/i.exec(userAgent)[1] : '' }
+  if (/Trident/i.test(userAgent))
+    return { name: "Internet Explorer", version: /rv:([\d\.]+)/i.exec(userAgent)?/rv:([\d\.]+)/i.exec(userAgent)[1]:''}
+  // phoenix
+  if (/chrome/i.test(userAgent) && /phx/i.test(userAgent))
+    return { name: "Phoenix", version: /phx\/([\d\.]+)/i.exec(userAgent)?/phx\/([\d\.]+)/i.exec(userAgent)[1]:'' }
+  // opera mini 
+  if (/chrome/i.test(userAgent) && /opr/i.test(userAgent))
+    return { name: "Opera", version: /opr.\/([\d\.]+)/i.exec(userAgent)?/opr.\/([\d\.]+)/i.exec(userAgent)[1]:'' }
+  // phoenix he operamini的判断一定在chrome之前，否则返回的都是chrome
+  if (/chrome/i.test(userAgent))
+    return { name: "Chrome", version: /chrome\/([\d\.]+)/i.exec(userAgent)?/chrome\/([\d\.]+)/i.exec(userAgent)[1]:'' }
+  if (/safari/i.test(userAgent))
+    return { name: "Safari", version: /version\/([\d\.]+)/i.exec(userAgent)?/version\/([\d\.]+)/i.exec(userAgent)[1]:'' }
+  if (/firefox/i.test(userAgent))
+    return { name: "Firefox", version: /firefox\/([\d\.]+)/i.exec(userAgent)?/firefox\/([\d\.]+)/i.exec(userAgent)[1]:'' }
+  if (/opera/i.test(userAgent))
+    return { name: "Opera", version: /opera.\/([\d\.]+)/i.exec(userAgent)?/opera.\/([\d\.]+)/i.exec(userAgent)[1]:'' }
+  if (/maxthon/i.test(userAgent))
+    return { name: "Maxthon", version: /version\/([\d\.]+)/i.exec(userAgent)?/version\/([\d\.]+)/i.exec(userAgent)[1]:'' }
+  if (/qqbrowser/i.test(userAgent))
+    return { name: "QQ Browser", version: /firefox\/([\d\.]+)/i.exec(userAgent)?/firefox\/([\d\.]+)/i.exec(userAgent)[1]:'' }
+  return { name: "others",version:'' }
+}	
+```
+需要注意不同浏览器会有不同的userAgent，需要从返回的信息中进行version的截取；
+```
+firefox
+	[system] UA: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:107.0) Gecko/20100101 Firefox/107.0
+	
+chrome
+	Mozilla/5.0 (Linux; Android 8.0.0; SM-G955U Build/R16NW) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Mobile Safari/537.36
+	
+edge
+	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.41
+	
+safari
+	Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15
+	
+opera
+	Mozilla/5.0 (Linux; U; Android 11; Infinix X6810 Build/RP1A.200720.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.141 Mobile Safari/537.36 OPR/62.2.2254.60868
+	
+phoenix
+	Mozilla/5.0 (Linux; U; Android 11; zh-cn; Infinix X6810 Build/RP1A.200720.011) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Mobile Safari/537.36 PHX/7.8
+```
+	
 	
 	
 	
