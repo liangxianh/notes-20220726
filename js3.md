@@ -115,9 +115,13 @@
 * 原型继承
 * 构造函数继承
 * 组合
+* 原型式继承
+* 寄生式继承
+* 寄生组合式继承
 
 
-1 单纯原型继承弊端：，因实例使用的是同一个原型对象，内存空间是共享的，顾存在耦合性，当构造函数某个属性是复杂对象时，更新其中一个实例的该属性，其它实例也会被修改；
+> 1 单纯原型继承弊端：，因实例使用的是同一个原型对象，内存空间是共享的，顾存在耦合性，当构造函数某个属性是复杂对象时，更新其中一个实例的该属性，其它实例也会被修改；
+
 ```
     function Parent() {
       this.name = 'parent1';
@@ -134,7 +138,8 @@
     console.log(s1, s2); // [1,2,3,4]
 ```
 
-2 单纯的构造函数继承，不能继承原型中的属性和方法，但是父类的引用属性不会被共享
+> 2 单纯的构造函数继承，不能继承原型中的属性和方法，但是父类的引用属性不会被共享
+
 ```
 function Person(name, age) {
       this.name = name
@@ -166,7 +171,13 @@ function Person(name, age) {
     console.log('stu1,stu11--------', stu1, stu11)
 ```
 
-在上面构造函数继承的继承上加上原型继承
+> 3 组合继承 在上面构造函数继承的继承上加上原型继承
+
+* 重点：结合了两种模式的优点，传参和复用
+* 特点：1、可以继承父类原型上的属性，可以传参，可复用。
+     2、每个新实例引入的构造函数属性是私有的。
+* 缺点：调用了两次父类构造函数（耗内存），子类的构造函数会代替原型上的那个父类构造函数。
+
 ```
     // 2 原型继承，用于继承原型上的属性和方法；
     // Student.prototype = Person.prototype // 这种方式耦合性太强，子和父之间共享空间
@@ -217,4 +228,206 @@ console.log(s3.play, s4.play);  // 不互相影响
 console.log(s3.getName()); // 正常输出'parent3'
 console.log(s4.getName()); // 正常输出'parent3'
 ```
+
+
+> 4 原型式继承（object.create()）
+
+    * 重点：用一个函数包装一个对象，然后返回这个函数的调用，这个函数就变成了个可以随意增添属性的实例或对象。object.create()就是这个原理。
+    * 特点：类似于复制一个对象，用函数来包装。
+    * 缺点：1、所有实例都会继承原型上的属性。
+         2、无法实现复用。（新实例属性都是后面添加的）
+      （ Object.create方法实现的是浅拷贝）
+```
+    function createObj(o) {
+      function F() { }
+      F.prototype = o
+      return new F()
+    }
+    let person = {
+      name: 'llm',
+      age: 23,
+      obj: {
+        asd: 123
+      },
+      say: function () {
+        console.log('AAAA');
+      }
+    }
+    let person1 = createObj(person)
+    let person2 = createObj(person)
+    console.log(person1.say())
+    person1.obj.asd = 987
+    // person1, person2的obj一样，因为F.prototype=o是浅复制
+    console.log(person1.obj);
+    console.log(person2.obj);
+```
+
+> 5 寄生继承
+
+    * 重点：就是给原型式继承外面套了个壳子。
+    * 优点：没有创建自定义类型，因为只是套了个壳子返回对象（这个），这个函数顺理成章就成了创建的新对象。
+    * 缺点：没用到原型，无法复用(浅拷贝)。
+```
+    function createObj(o) {
+      let clone = Object.create(o)
+      return clone
+    }
+    let person = {
+      name: 'llm',
+      age: 23,
+      say: function () {
+        console.log('AAA');
+      }
+    }
+    let person1 = createObj(person)
+    let person2 = createObj(person)
+    console.log(person1.say());
+    person2.age = 24
+    console.log(person2.age);
+    console.log(person1.age);
+```
+
+> 6 寄生组合继承（常用）
+
+* 重点：修复了组合继承的问题
+```
+function clone (parent, child) {
+    // 这里改用 Object.create 就可以减少组合继承中多进行一次构造的过程
+    child.prototype = Object.create(parent.prototype);
+    child.prototype.constructor = child;
+}
+
+function Parent6() {
+    this.name = 'parent6';
+    this.play = [1, 2, 3];
+}
+Parent6.prototype.getName = function () {
+    return this.name;
+}
+function Child6() {
+    Parent6.call(this);
+    this.friends = 'child5';
+}
+/* 
+  与组合继承不同的是将Student.prototype = new Person()换成了下面的方式
+*/
+clone(Parent6, Child6);
+
+Child6.prototype.getFriends = function () {
+    return this.friends;
+}
+
+let person6 = new Child6();
+console.log(person6); //{friends:"child5",name:"child5",play:[1,2,3],__proto__:Parent6}
+console.log(person6.getName()); // parent6
+console.log(person6.getFriends()); // child5
+```
+
+ > 7 使用ES6 中的extends关键字直接实现 JavaScript的继承
+
+```
+class Person {
+  constructor(name) {
+    this.name = name
+  }
+  // 原型方法
+  // 即 Person.prototype.getName = function() { }
+  // 下面可以简写为 getName() {...}
+  getName = function () {
+    console.log('Person:', this.name)
+  }
+}
+class Gamer extends Person {
+  constructor(name, age) {
+    // 子类中存在构造函数，则需要在使用“this”之前首先调用 super()。
+    super(name)
+    this.age = age
+  }
+}
+const asuna = new Gamer('Asuna', 20)
+asuna.getName() // 成功访问到父类的方法
+```
+利用babel工具进行转换，我们会发现extends实际采用的也是寄生组合继承方式，因此也证明了这种方式是较优的解决继承的方式
+
+
+详细对比6和7 发现6还存在如下问题:不能解决原型属性为引用类型时 浅拷贝问题；
+```
+   function clone(parent, child) {
+      // 这里改用 Object.create 就可以减少组合继承中多进行一次构造的过程
+      child.prototype = Object.create(parent.prototype);
+      child.prototype.constructor = child;
+    }
+
+    function Parent6() {
+      this.name = 'parent6';
+      this.play = [1, 2, 3];
+    }
+    Parent6.prototype.hoppy = ['sleep', 'eat']
+    function Child6() {
+      Parent6.call(this);
+      this.friends = 'child5';
+    }
+    clone(Parent6, Child6);
+    
+    console.log('---------------寄生组合式继承')
+    let person6 = new Child6();
+    let person7 = new Child6();
+    person6.play.push(7)
+    console.log('person6', person6);  // Child6 {name: 'parent6', play: Array(4), friends: 'child5'}
+    console.log('person7', person7);  // Child6 {name: 'parent6', play: Array(3), friends: 'child5'}
+    // 发现寄生式组合继承，不能解决原型属性为引用类型时 浅拷贝问题；
+    console.log('person6.hoppy', person6.hoppy)
+    person6.hoppy.push('play')
+    console.log('person6.hoppy', person6.hoppy) // ['sleep', 'eat', 'play']
+    console.log('person7.hoppy', person7.hoppy) // ['sleep', 'eat', 'play']
+```
+
+但是extends解决了这个问题
+```
+    class Persone {
+      constructor(name) {
+        this.name = name
+      }
+      // 原型方法
+      // 即 Person.prototype.getName = function() { }
+      // 下面可以简写为 getName() {...}
+      getName = function () {
+        console.log('Person:', this.name)
+      }
+      hoppy = ['eat', 'sleep']
+    }
+    class Gamer extends Persone {
+      constructor(name, age) {
+        // 子类中存在构造函数，则需要在使用“this”之前首先调用 super()。
+        super(name)
+        this.age = age
+      }
+    }
+    const asuna = new Gamer('Asuna', 20)
+    const lili = new Gamer('lili', 30)
+    // asuna.getName() // 成功访问到父类的方法
+    asuna.hoppy.push('kkk')
+    console.log(asuna.hoppy) // ['eat', 'sleep', 'kkk']
+    console.log(lili.hoppy) // ['eat', 'sleep']
+```
+单纯的看object.create用于创建一个新对象，使用现有的对象来作为新创建对象的原型（prototype）
+```
+    const myVars = {
+      key1: 'sample',
+      key2: ['s', 'a'],
+      fun: function () {
+        console.log('fun')
+      }
+    }
+    let sam1 = Object.create(myVars)
+    let sam2 = Object.create(myVars)
+    sam1.key2.push('111')
+    console.log('', sam1, sam2)
+```
+明显的会共用内存空间（浅拷贝）
+![image](https://user-images.githubusercontent.com/31762176/219313445-ea894ea5-2f8b-4efc-b9c9-8bda14767895.png)
+
+
+
+
 
