@@ -47,6 +47,7 @@ Nginx配置proxy_pass转发的 / 路径问题
 示例
 
 > 有 /
+
 ```
 location /publicPath/ {
     proxy_pass https://api.*.com/;
@@ -55,19 +56,23 @@ location /publicPath/ {
 如上面的配置，如果请求的 url 是 http://your_domain/publicPath/add，会被代理成 http://api.*.com/add
 
 > 无 /
+
 ```
 location /publicPath/ {
     proxy_pass https://api.*.com;
  }
 ```
+
 如上面的配置，如果请求的 url 是 http://your_domain/publicPath/add，会被代理成 http://api.*.com/publicPath/add
 
 当然，我们可以用如下的 rewrite 来实现 / 的功能：
+
 ```
 location /publicPath/ {
     proxy_pass https://api.*.com;
     rewrite: (path) => path.replace(/^\/api/, ''),
  }
+ ```
  
   以本地链接测试环境进行测试。。
  ```
@@ -164,15 +169,15 @@ http {
 
 如上配置，当访问服务器的根目录时，会把请求转移到test变量定义的服务器中。而且，这个test变量定义的服务器private.server1.com.cn会通过resolver 定义的dns 服务器进行动态解析。在此配置中，通过resolver得到的解析结果有效期是10秒。有效期过后，再次访问根目录时就会对域名进行重新解析。
 
-<b>需要注意的是，如果proxy_pass后面是一个域名而不是一个变量，那么对域名的解析也是发生在启动解析期间，无法完成动态域名解析的功能。</b>
+** 需要注意的是，如果proxy_pass后面是一个域名而不是一个变量，那么对域名的解析也是发生在启动解析期间，无法完成动态域名解析的功能。**
 
 
 [参考原文链接]https://www.nginx.org.cn/article/detail/356
 
 
-<b>使用Nginx resolver注意点
+** 使用Nginx resolver注意点
 使用 resolver 功能，通过 resolver 这种方式来实现nginx动态解析代理域名，相当于放弃了upstream，也就无法使用upstream相关配置功能，比如回话保持、健康检测等等
-针对如下妖怪问题，建议严谨测试后再上线。</b>
+针对如下妖怪问题，建议严谨测试后再上线。**
 
 [参考文章](https://www.nginx-cn.net/products/nginx/load-balancing/)
 
