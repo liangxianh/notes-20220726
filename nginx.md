@@ -188,6 +188,22 @@ resolver 8.8.8.8 valid=10s;将valid=10s删除重新部署，继续观察情况�
 我大概查了一下 负责的其它的项目 nslookup 域名； 其它项目的ip一般只有2个固定的
 但是该amatooke项目存在很多个而且不同，很快的运行两次仍然存在不同；
 
+
+现在默认情况下，nginx会从主机/etc/resolv.conf中选择你的解析器，但这可能不是你需要的。如果你想使用谷歌的DNS解析器，那么你要像下面这样更新nginx的配置。
+```
+location / {
+    resolver 8.8.8.8;
+    proxy_pass http://www.example.com/abc/def。
+}
+```
+如果你使用本地的DNS解析器在本地网络内进行路由，那么你可以使用下面的方法。
+```
+location / {
+    resolver 192.168.11.10;
+    proxy_pass http://machineabc/abc/def。
+}
+```
+
 利用nslookup 要转发到的域名进行解析；发现有问题的项目会时刻变化ip；有相同的有不同的；其它为出现问题的项目查看时，会固定就2个相同的ip或者服务端配置的允许进行跨域访问不会出现问题；
 
 
