@@ -69,6 +69,46 @@ const re1 = new RegExp(rul,"g");
 ```
 
 ```
+| 属性字母 | 代表含义 | 属性字母 中文翻译 |
+| ---| ---| ---|
+| C | Other | C 其他 | 
+| Cc | Control | Cc 控制 | 
+| Cf | Format | Cf 格式 | 
+| Cn | Unassigned | Cn 未分配的 | 
+| Co | Private use | Co 私人使用 | 
+| Cs | Surrogate | Cs 代理人 | 
+| L | Letter	Includes the following properties: Ll, Lm, Lo, Lt and Lu. | L 字母 包括以下属性。Ll, Lm, Lo, Lt 和 Lu。| 
+| Ll | Lower case letter | Ll 小写字母 | 
+| Lm | Modifier letter | Lm 修饰语字母 | 
+| Lo | Other letter | Lo 其他字母 | 
+| Lt | Title case letter | Lt 标题字母 | 
+| Lu | Upper case letter | Lu 大写字母 | 
+| M | Mark | M 标记 | 
+| Mc | Spacing mark | Mc 间隔标记 | 
+| Me | Enclosing mark | Me 包容性标记 | 
+| Mn | Non - spacing mark | Mn 非间距标记 | 
+| N | Number | N 数字 | 
+| Nd | Decimal number | Nd 十进制数字 | 
+| Nl | Letter number | Nl 字母编号 | 
+| No | Other number | No 其他数字 | 
+| P | Punctuation | P 标点符号 | 
+| Pc | Connector punctuation | Pc 连字符标点符号 | 
+| Pd | Dash punctuation | Pd 破折号标点符号 | 
+| Pe | Close punctuation | Pe 关闭标点符号 | 
+| Pf | Final punctuation | Pf 最后的标点符号 | 
+| Pi | Initial punctuation | Pi 首字母标点符号 | 
+| Po | Other punctuation | Po 其他标点符号 | 
+| Ps | Open punctuation | Ps 开放式标点符号 | 
+| S | Symbol | S 符号 | 
+| Sc | Currency symbol | Sc 货币符号 | 
+| Sk | Modifier symbol | Sk 修饰符号 | 
+| Sm | Mathematical symbol | Sm 数学符号 | 
+| So | Other symbol | So 其他符号 | 
+| Z | Separator | Z 分隔符 | 
+| Zl | Line separator | Zl 行分隔符 | 
+| Zp | Paragraph separator | Zp 段落分隔符 | 
+| Zs | Space separator | Zs 空格分隔符 | 
+
 
 | 属性字母 | 代表含义 | 属性字母 中文翻译 |
 | ---| ---| ---|
