@@ -116,9 +116,16 @@ const re1 = new RegExp(rul,"g");
 | Zp | Paragraph separator | Zp 段落分隔符 | 
 | Zs | Space separator | Zs 空格分隔符 | 
 
+指定大小写不敏感匹配对这些转义序列不会产生影响，比如， \p{Lu} 始终匹配大写字母。
 
+Unicode 字符集在具体文字中定义。使用文字名可以匹配这些字符集中的一个字符。例如：
+
+```
+\p{Greek}
+\P{Han} 
+```
 
 [字符属性参考文献](https://tool.oschina.net/uploads/apidocs/php-zh/regexp.reference.unicode.html)
-
+[字符属性参考文献2](https://www.php.net/manual/zh/regexp.reference.unicode.php)
 
 
