@@ -67,14 +67,81 @@ const re1 = new RegExp(rul,"g");
 > 4 汉字与字符属性
 
 ```
-
+let hd = 'regtesst20230222, 传音人'
+// 匹配字母
+console.log(hd.match(/\p{L}/ug))
+// 匹配标点符号
+console.log(hd.match(/\p{P}/ug))
+// 匹配中文
+console.log(hd.match(/\p{sc=Han}/ug))
 ```
+* Unicode 属性 \p{…}
 
-如果通过\p或\P仅指定了一个字母, 它包含所有以这个字母开头的属性. 在这种情况下, 花括号的转义序列是可选的.
+Unicode 中的每个字符都有很多属性。它们描述了字符所属的“类别”，包含了关于字符的各种信息。
 
-\p{L}
-\pL
+例如，如果一个字符具有 Letter 属性，这意味着这个字符归属于（任意语言的）字母表。而 Number 属性则表示这是一个数字：也许是阿拉伯数字，亦或是中文数字，等等。
 
+我们可以查找具有某种属性的字符，写作 \p{…}。为了使用 \p{…}，一个正则表达式必须使用修饰符 u。
+
+举个例子，\p{Letter} 表示任何语言中的一个字母。我们也可以使用 \p{L}，因为 L 是 Letter 的一个别名。对于每种属性而言，几乎都存在对应的缩写别名。
+
+在下面的例子中会找出来 3 种字母：英语、格鲁吉亚语和韩语。
+```
+let str = "A ბ ㄱ";
+alert( str.match(/\p{L}/gu) ); // A,ბ,ㄱ
+alert( str.match(/\p{L}/g) ); // null（没有匹配项，因为没有修饰符 "u"）
+```
+以下是主要的字符类别和它们对应的子类别：
+
+字母（Letter）L：
+小写（lowercase）Ll，
+修饰（modifier）Lm，
+首字母大写（titlecase）Lt，
+大写（uppercase）Lu，
+其它（other）Lo。
+数字（Number）N：
+十进制数字（decimal digit）Nd，
+字母数字（letter number）Nl，
+其它（other）No。
+标点符号（Punctuation）P：
+连接符（connector）Pc，
+横杠（dash）Pd，
+起始引号（initial quote）Pi，
+结束引号（final quote）Pf，
+开（open）Ps，
+闭（close）Pe，
+其它（other）Po。
+标记（Mark）M（accents etc）：
+间隔合并（spacing combining）Mc，
+封闭（enclosing）Me，
+非间隔（non-spacing）Mn。
+符号（Symbol）S：
+货币（currency）Sc，
+修饰（modifier）Sk，
+数学（math）Sm，
+其它（other）So。
+分隔符（Separator）Z：
+行（line）Zl，
+段落（paragraph）Zp，
+空格（space）Zs。
+其它（Other）C：
+控制符（control）Cc，
+格式（format）Cf，
+未分配（not assigned）Cn，
+私有（private use）Co，
+代理伪字符（surrogate）Cs。
+因此，比如说我们需要小写的字母，就可以写成 \p{Ll}，标点符号写作 \p{P} 等等。
+
+也有其它派生的类别，例如：
+
+Alphabetic（Alpha），包含了字母 L，加上字母数字 Nl（例如 Ⅻ —— 罗马数字 12），加上一些其它符号 Other_Alphabetic（OAlpha）。
+Hex_Digit 包括 16 进制数字 0-9，a-f。
+……等等。
+Unicode 支持很多不同的属性，列出整个清单需要占用大量的篇幅，因此在这里列出相关的链接：
+[列出一个字符的所有属性：](https://unicode.org/cldr/utility/character.jsp)
+[按照属性列出所有的字符：](https://unicode.org/cldr/utility/list-unicodeset.jsp)
+[属性的对应缩写形式：](https://www.unicode.org/Public/UCD/latest/ucd/PropertyValueAliases.txt)
+[以文本格式整理的所有 Unicode 字符，包含了所有的属性：](https://www.unicode.org/Public/UCD/latest/ucd/)
 |支持的Unicode属性|
 | 属性字母 | 代表含义 | 属性字母 中文翻译 |
 | ---| ---| ---|
