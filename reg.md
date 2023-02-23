@@ -92,7 +92,7 @@ alert( str.match(/\p{L}/gu) ); // A,ბ,ㄱ
 alert( str.match(/\p{L}/g) ); // null（没有匹配项，因为没有修饰符 "u"）
 ```
 以下是主要的字符类别和它们对应的子类别：
-
+```
 字母（Letter）L：
 小写（lowercase）Ll，
 修饰（modifier）Lm，
@@ -130,6 +130,7 @@ alert( str.match(/\p{L}/g) ); // null（没有匹配项，因为没有修饰符 
 未分配（not assigned）Cn，
 私有（private use）Co，
 代理伪字符（surrogate）Cs。
+```
 因此，比如说我们需要小写的字母，就可以写成 \p{Ll}，标点符号写作 \p{P} 等等。
 
 也有其它派生的类别，例如：
@@ -138,10 +139,13 @@ Alphabetic（Alpha），包含了字母 L，加上字母数字 Nl（例如 Ⅻ �
 Hex_Digit 包括 16 进制数字 0-9，a-f。
 ……等等。
 Unicode 支持很多不同的属性，列出整个清单需要占用大量的篇幅，因此在这里列出相关的链接：
-[列出一个字符的所有属性：](https://unicode.org/cldr/utility/character.jsp)
-[按照属性列出所有的字符：](https://unicode.org/cldr/utility/list-unicodeset.jsp)
-[属性的对应缩写形式：](https://www.unicode.org/Public/UCD/latest/ucd/PropertyValueAliases.txt)
-[以文本格式整理的所有 Unicode 字符，包含了所有的属性：](https://www.unicode.org/Public/UCD/latest/ucd/)
+
+* [正则表达式之Unicode：修饰符 "u" 和类 \p{...}](https://www.cnblogs.com/lxlx1798/articles/16975828.html)
+* [列出一个字符的所有属性：](https://unicode.org/cldr/utility/character.jsp)
+* [按照属性列出所有的字符：](https://unicode.org/cldr/utility/list-unicodeset.jsp)
+* [属性的对应缩写形式：](https://www.unicode.org/Public/UCD/latest/ucd/PropertyValueAliases.txt)
+* [以文本格式整理的所有 Unicode 字符，包含了所有的属性：](https://www.unicode.org/Public/UCD/latest/ucd/)
+
 |支持的Unicode属性|
 | 属性字母 | 代表含义 | 属性字母 中文翻译 |
 | ---| ---| ---|
