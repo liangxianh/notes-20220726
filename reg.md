@@ -256,8 +256,89 @@ alert('𝒳'.length); // 2
     console.log(str5.match(reg5)) //(4) ['.', ')', '(', ')']
 ```
 
+> 8 不记录原子组(?:reg)
+
+```
+    // 原子组只是想匹配，不想输出，直接在原子组前面?:
+    let str888 = `
+    https://www.baidu.com
+    http://houdunren.com
+    `
+
+    let reg888 = /https?:\/\/((?:\w+\.)?\w+\.(?:com|cn|org|cc))/ig
+    console.log(str888.match(reg888))
+
+    console.log(reg888.exec(str888))
+    // 有g时才会继续向后查询； 无g时lastindex 每次从0开始
+    console.log(reg888.exec(str888))
+    console.log(reg888.exec(str888))
+
+    console.log('---------')
+    console.log(str888.replace(reg888, `$1$2`)) 
+    //www.baidu.com$2  不记录顾$2没有只被作为单纯的字符串；
+    // houdunren.com$2
+```
 
 
+> 9 多个正则用于同一个字符串验证，比如密码验证
+
+```
+
+  <div class="content">
+    <input type="text" name="password">
+  </div>
+  <script>
+    // 批量使用reg完成验证密码
+    const input = document.querySelector(`[name="password"]`)
+    input.addEventListener('keyup', e => {
+      const value = e.target.value
+      console.log(value)
+      const regs = [
+        /^[a-z0-9]{5,10}$/i,
+        /[A-Z]/,
+        /[a-z]/,
+        /[0-9]/,
+      ]
+      let state = regs.every(e => e.test(value))
+      console.log(state ? 'right' : 'wrong')
+    })
+   </script>
+```
+
+> 10 禁止贪婪，在需要禁止的地方加？
+
+以标签替换为例
+```
+  <div class="content">
+    <main>
+      <span>kdfjk.com</span>
+      <span>kdjf;al.co,m</span>
+      <span>houdunren.com</span>
+    </main>
+  </div>
+  <script>
+    // 将span--》h4 且描红，加前缀fight!!!-
+    const main = document.querySelector('main')
+    const reg = /<span>([\s\S]+)<\/span>/gi
+    const reg22 = /<span>([\s\S]+?)<\/span>/gi
+    // main.innerHTML = main.innerHTML.replace(reg, (v, p1) => {
+    //   console.log(v) // 这种情况会贪婪匹配，结果如下: 包括空格
+    //   /* 
+    //   //只有一个结果
+    //   <span>kdfjk.com</span>
+    //      <span>kdjf;al.co,m</span>
+    //      <span>houdunren.com</span>
+    //   */
+    // })
+    // 加上？就会尽量偏向少的那面；
+    main.innerHTML = main.innerHTML.replace(reg22, (v, p) => {
+      // console.log(v) //这样会匹配3个结果
+      return `<h4 style="color: red">fight!!!-${p}</h4>`
+    })
+```
+
+
+11 
 
 
 
