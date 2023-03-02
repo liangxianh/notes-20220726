@@ -338,9 +338,33 @@ alert('𝒳'.length); // 2
 ```
 
 
-11 
+11 matchAll（同match一样也是字符串方法）；
+
+```
+    let regMatch = /<(h[1-6])>([\s\S]+?)<\/\1>/i;
+    let regMatchg = /<(h[1-6])>([\s\S]+?)<\/\1>/ig;
+    const headerh = document.querySelector('header')
+
+    // 使用match时存在问题：reg+g 则匹配不到内容，不加g则只能匹配到第一个；
+    console.log(headerh.innerHTML.match(regMatch))
+    console.dir(headerh.innerHTML.match(regMatchg))
+```
+
+![image](https://user-images.githubusercontent.com/31762176/222385032-71c6c5ba-8999-45b3-a229-4d3695fc226d.png)
+
+针对match的问题可以使用matchAll来处理，但matchAll 有兼容性问题，部分低版本浏览器存在问题；
+```
+    const iteratorI = headerh.innerHTML.matchAll(regMatchg)
+    let contents = [];
+    for (let item of iteratorI) {
+      console.log(item)
+      contents.push(item[2])
+    }
+    console.log(contents)
+```
+可以兼容低版本浏览器自己实现matchAll方法
 
 
-
-
+> 12 正则方法exec（）
+> 13 
 
