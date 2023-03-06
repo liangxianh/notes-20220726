@@ -366,6 +366,8 @@ alert('𝒳'.length); // 2
 
 
 > 12 正则方法exec（）
+
+
 > 13 $符在正则替换中的作用；
 
   * $&：代表匹配到的内容
@@ -386,3 +388,46 @@ let hd = "%hou="
    const main = document.querySelector('body main')
    main.innerHTML = main.innerHTML.replace(/百度/, `<a href="https://www.baidu.com">$&</a`)
 ```
+
+
+
+> 14 原子组在替换中的使用技巧
+
+```
+// 可以批量接受原子组参数，然后
+```
+
+> 15 原子组的别名 
+
+```
+html body内
+    <main>
+      <a target=“blank” href="http://www.baidu.com">百度</a>
+      <a id="k" href="http://www.kkk.com">kkk</a>
+      <a id="k" href="asd.com">kkk</a>
+      <a id="k" href="asdfkk.com">kkk</a>
+      <a href="http://google.com">google</a>
+    </main>
+    js
+    // <a后面.*?禁止贪婪匹配任意字符，
+    // (?<link>.*?)单引号或者双引号中间的任意字符禁止贪婪
+    const reg = /<a.*?href=(['"])(?<link>.*?)\1>(?<title>.*?)<\/a>/ig
+    // console.log(main.innerHTML.match(reg))  //可以reg不带g测试看下输出格式，里面有参数groups，包含定义的组的别名和匹配的值信息；
+    const links = []
+    for(const iterator of main.innerHTML.matchAll(reg)) {
+      links.push(iterator["groups"])
+    }
+    console.log(links)
+    // 只提取带http（s）的
+    const reg2 = /<a.*?href=(['"])(?<link>https?:\/\/(.*?))\1>(?<title>.*?)<\/a>/ig
+    const links2 = []
+    for(const iterator2 of main.innerHTML.matchAll(reg2)) {
+      links2.push(iterator2["groups"])
+    }
+    console.log(links2)
+```
+![image](https://user-images.githubusercontent.com/31762176/223060869-8133c5cd-d48d-47d8-9e6d-577ad18bbbb3.png)
+
+> 16 ?=断言匹配
+> 17 正则方法test exec
+
