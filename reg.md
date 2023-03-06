@@ -366,5 +366,23 @@ alert('𝒳'.length); // 2
 
 
 > 12 正则方法exec（）
-> 13 
+> 13 $符在正则替换中的作用；
 
+  * $&：代表匹配到的内容
+  * $`: 匹配内容左边（前）的内容
+  * $': 匹配内容右边（后）边的内容
+
+```
+let hd = "%hou="
+   let hd2 = "%hou=houkkk33"
+   let reg = /hou/g
+   console.log(hd.replace(reg, "$&$&"))  // %houhou=
+   console.log(hd.replace(reg, "$'"))    /// %==
+   console.log(hd.replace(reg, "$`z$`d"))  //  %z%d=   注意$`在首位或者在连续的两个第一个总是不被识别而忽略
+   console.log(hd.replace(reg, " $`z$`d"))   // % %z%d=
+   console.log(hd.replace(reg, " $`$`z$`d"))   // % %z%d=
+   console.log(hd.replace(reg, " $`$`$`z$`d"))  //% %%z%d=
+   // 实例
+   const main = document.querySelector('body main')
+   main.innerHTML = main.innerHTML.replace(/百度/, `<a href="https://www.baidu.com">$&</a`)
+```
