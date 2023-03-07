@@ -487,12 +487,12 @@ html body内
 ```
 ![image](https://user-images.githubusercontent.com/31762176/223060869-8133c5cd-d48d-47d8-9e6d-577ad18bbbb3.png)
 
-> 16 断言
+> 16 断言（环视有以下四种）
 
-* reg(?=content)后面断言匹配
-* reg(?!contentreg)后面非断言
-* (?<=content)reg前面断言匹配 ()
-* (?<!contentreg)后行断言，前面不是contentreg的内容
+* (?=表达式)正向先行断言     reg(?=content)后面断言匹配
+* (?!表达式)反向先行断言     reg(?!contentreg)后面非断言
+* (?<=表达式)正向后行断言     (?<=content)reg前面断言匹配 ()
+* (?<!表达式)反向后行断言     (?<!contentreg)后行断言，前面不是contentreg的内容
 
 后面断言规范价格为例
 ```
@@ -548,5 +548,87 @@ let lessons = `
     })
 ```
 
+> 17 项目开发过程中的实例
 
+* 邮箱
+
+```
+export function isEmail(s) {
+  return /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((.[a-zA-Z0-9_-]{2,3}){1,2})$/.test(s);
+}
+
+//或下面 \w字符数字下划线
+const reg = /[\w-]+@([\w]+\.)+(com|cn|org|cc)/i
+```
+
+* 电话
+
+```
+/**
+ * 电话号码 ?代表有无区号均可
+ * @param {*} s
+ */
+export function isPhone(s) {
+  return /^([0-9]{3,4}-)?[0-9]{7,8}$/.test(s);
+}
+
+```
+
+* 手机号
+
+```
+/**
+ * 手机号码
+ * @param {*} s
+ */
+export function isMobile(s) {
+  return /^1[0-9]{10}$/.test(s);
+}
+```
+
+* link链接
+
+```
+/**
+ * URL地址
+ * @param {*} s
+ */
+export function isURL(s) {
+  return /^http[s]?:\/\/.*/.test(s);
+}
+
+export function isExternal(path) {
+  return /^(https?:|mailto:|tel:)/.test(path);
+}
+```
+
+* 密码要求包含字母数字和特殊字符
+
+```
+    const password = document.querySelector('[name="password"]')
+    // (?=.*[A-Za-z])从头查包含字母[A-Za-z],
+    // (?=.*\d)从开始查包含数字
+    // (?=.*[/*#?&])从开始查包含/*#?&这几个特殊字符
+    // 前面只是断言并不是真正的内容，而[A-Za-z\d@$!%*#?&]{8,}代表密码的真正内容包含字符数字特殊字符等8位以上；
+    const passreg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[/*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+    password.addEventListener('keyup', function(){
+      console.log(this.value.match(passreg))
+    })
+    
+     // (?!.*凉糕.*)限制条件从开始到结束都不包含 凉糕 .*代表0个或多个字符
+      const reg = /^(?!.*凉糕).*/i
+```
+
+** 一定注意: 断言`(?=.*[A-Za-z])`如果不加`.*`则表示以字符开始，加了表示从开始算的任意位置 **
+```
+    // 必须以字符开始方可
+    const passreg2 = /^(?=[A-Za-z])(?=.*\d)(?=.*[/*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+    // 必须以数字开始方可
+    const passreg2 = /^(?=.*[A-Za-z])(?=\d)(?=.*[/*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+    // 必须以/*#?&这几个特殊字符开始方可
+    const passreg2 = /^(?=.*[A-Za-z])(?=.*\d)(?=[/*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+    password.addEventListener('keyup', function(){
+      console.log(this.value.match(passreg2))
+    })
+```
 
