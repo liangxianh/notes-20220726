@@ -1,6 +1,6 @@
 ### 正则表达式
 
-> 1 魅力
+> 1 魅力及常见规则
 
 如一下提取字符串里的数字,正则一句话搞定；可以提升代码质量；
 
@@ -12,6 +12,49 @@
 
     console.log(str.match(/\d/g).join(''))
 ```
+常见的校验规则如下：
+| 规则	| 描述 |
+| ---  | --- |
+| \ | 转义 |
+| ^ | 匹配输入的开始 |
+| $ | 匹配输入的结束 |
+| * | 匹配前一个表达式 0 次或多次 |
+| + | 匹配前面一个表达式 1 次或者多次。等价于 {1,} |
+| ? | 匹配前面一个表达式 0 次或者 1 次。等价于{0,1} |
+| . | 默认匹配除换行符之外的任何单个字符 |
+| x(?=y) | 匹配'x'仅仅当'x'后面跟着'y'。这种叫做先行断言 |
+| (?<=y)x	| 匹配'x'仅当'x'前面是'y'.这种叫做后行断言 |
+| x(?!y)	| 仅仅当'x'后面不跟着'y'时匹配'x'，这被称为正向否定查找 |
+| (?<!y)x	| 仅仅当'x'前面不是'y'时匹配'x'，这被称为反向否定查找 |
+| x|y	| 匹配‘x’或者‘y’ |
+| {n}	n | 是一个正整数，匹配了前面一个字符刚好出现了 n 次 |
+| {n,}	| n是一个正整数，匹配前一个字符至少出现了n次 |
+| {n,m}	| n 和 m 都是整数。匹配前面的字符至少n次，最多m次 |
+| [xyz]	| 一个字符集合。匹配方括号中的任意字符 |
+| [^xyz] | 匹配任何没有包含在方括号中的字符 |
+| \b |	匹配一个词的边界，例如在字母和空格之间 |
+| \B |	匹配一个非单词边界 |
+| \d |	匹配一个数字 |
+| \D |	匹配一个非数字字符 |
+| \f |	匹配一个换页符 |
+| \n |	匹配一个换行符 |
+| \r |	匹配一个回车符 |
+| \s |	匹配一个空白字符，包括空格、制表符、换页符和换行符 |
+| \S |	匹配一个非空白字符 |
+| \w |	匹配一个单字字符（字母、数字或者下划线） |
+| \W |	匹配一个非单字字符 |
+
+
+正则表达式标记
+ | 标志 | 描述 | 
+ | --- | --- |
+ | g | 全局搜索 | 
+ | i | 不区分大小写搜索 | 
+ | m | 多行搜索 | 
+ | s | 允许 . 匹配换行符 | 
+ | u | 使用unicode码的模式进行匹配 | 
+ | y | 执行“粘性(sticky)”搜索,匹配从目标字符串的当前位置开始 |
+ 
 
 > 2 创建
 
@@ -397,7 +440,9 @@ let hd = "%hou="
 // 可以批量接受原子组参数，然后
 ```
 
-> 15 原子组的别名 
+> 15 原子组的别名(?<link>reg) 
+
+以获取页面内a链接的href和title为例；
 
 ```
 html body内
@@ -428,6 +473,66 @@ html body内
 ```
 ![image](https://user-images.githubusercontent.com/31762176/223060869-8133c5cd-d48d-47d8-9e6d-577ad18bbbb3.png)
 
-> 16 ?=断言匹配
-> 17 正则方法test exec
+> 16 断言
+
+* reg(?=content)后面断言匹配
+* reg(?!contentreg)后面非断言
+* (?<=content)reg前面断言匹配 ()
+* (?<!contentreg)后行断言，前面不是contentreg的内容
+
+后面断言规范价格为例
+```
+let lessons = `
+      js, 200元,300次
+      java, 300.00元, 34次
+      node.js, 250元,230次
+      php, 99元,30次
+    `
+    let reg = /(\d+)(.00)?(?=元)/gi
+    // for(let iter of lessons.matchAll(reg)){
+    //   console.log(iter)
+    // }
+    // console.log('=======')
+    lessons = lessons.replace(reg, (v, ...args) => {
+      // 注意进入的都是匹配到的内容
+      // console.log(args) // 注意此出打印的是下面处理splice之后的结果，splice会影响原数组
+      args[1] = args[1] || '.00'
+      const temp =  args.splice(0,2).join("")
+      // console.log('temp', temp)
+      return temp
+    })
+    console.log(lessons)
+```
+
+后面非断言
+```
+   let strnotif = "houdun3432hmcl"
+    let regnofif = /[a-z]+(?!\d)$/g
+    // const regbif = /[a-z]+(?!\d+)$/g
+    console.log(strnotif.match(regnofif)) // ['hmcl']   //不加$houdu 会被贪婪匹配到n之前
+```
+
+前面断言以模糊手机号为例
+```
+    let user = `
+      张三: 15988989876
+      里斯: 27688987656
+    `
+    const regbif = /(?<=\d{7})\d{4}/g
+    user = user.replace(regbif, (v) => {
+      return '*'.repeat(4)
+    })
+    console.log(user)
+```
+用户名不包含某个字段
+```
+    const input = document.querySelector('[name="username"]')
+    input.addEventListener('keyup', function(){
+      // (?!.*凉糕.*)限制条件从开始到结束都不包含 凉糕
+      const reg = /^(?!.*凉糕.*).*/i
+      console.log(this.value.match(reg))
+    })
+```
+
+
 
