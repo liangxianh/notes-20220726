@@ -26,7 +26,7 @@
 | (?<=y)x	| 匹配'x'仅当'x'前面是'y'.这种叫做后行断言 |
 | x(?!y)	| 仅仅当'x'后面不跟着'y'时匹配'x'，这被称为正向否定查找 |
 | (?<!y)x	| 仅仅当'x'前面不是'y'时匹配'x'，这被称为反向否定查找 |
-| x&#124; &#x7Cy；	| 匹配‘x’或者‘y’ |
+| x&#124;	| 匹配‘x’或者‘y’ |
 | {n} |	n是一个正整数，匹配了前面一个字符刚好出现了 n 次 |
 | {n,}	| n是一个正整数，匹配前一个字符至少出现了n次 |
 | {n,m}	| n 和 m 都是整数。匹配前面的字符至少n次，最多m次 |
@@ -50,7 +50,7 @@
  | --- | --- |
  | g | 全局搜索 | 
  | i | 不区分大小写搜索 | 
- | m | 多行搜索 | 
+ | m | 多行搜索,若匹配的内容中有换行符（\r|\n|<br />），则每行的开头都可以被^符号识别 | 
  | s | 允许 . 匹配换行符 | 
  | u | 使用unicode码的模式进行匹配 | 
  | y | 执行“粘性(sticky)”搜索,匹配从目标字符串的当前位置开始 |
@@ -59,7 +59,8 @@
 
 * 字符串（str）方法：match、matchAll、search、replace、split
 * 正则对象下（regexp）的方法：test、exec
-* 
+
+
 | 方法 | 描述 |
 | ---| --- |
 | exec	| 一个在字符串中执行查找匹配的RegExp方法，它返回一个数组（未匹配到则返回 null） |
@@ -494,6 +495,17 @@ html body内
 * (?<=表达式)正向后行断言     (?<=content)reg前面断言匹配 ()
 * (?<!表达式)反向后行断言     (?<!contentreg)后行断言，前面不是contentreg的内容
 
+** 断言的特点： **
+
+* 匹配的过程中不占字符，被称为0宽,比如下面的内容对比,断言不占字符
+```
+    let str = "your"
+    let pr = /yo[abu]/
+    let prif = /yo(?=[abu])/
+    console.log(pr.exec(str))  // ['you', index: 0, input: 'your', groups: undefined]
+    console.log(prif.exec(str)) // ['yo', index: 0, input: 'your', groups: undefined]
+```
+
 后面断言规范价格为例
 ```
 let lessons = `
@@ -616,7 +628,8 @@ export function isExternal(path) {
     })
     
      // (?!.*凉糕.*)限制条件从开始到结束都不包含 凉糕 .*代表0个或多个字符
-      const reg = /^(?!.*凉糕).*/i
+     const reg = /^(?!.*凉糕).*/i
+     // 注意b站老师讲解的是const reg = /^(?!.*凉糕.*).*/i 很不明白后面的.*是做什么用的；
 ```
 
 ** 一定注意: 断言`(?=.*[A-Za-z])`如果不加`.*`则表示以字符开始，加了表示从开始算的任意位置 **
@@ -632,3 +645,13 @@ export function isExternal(path) {
     })
 ```
 
+```
+    const strif = "hello word, i am your frends, aoj, billao"
+    // 匹配下面田间的单词
+    const regif = /[a-z]*(o(?=[abu]))[a-z]*/ig
+    const regif1 = /[a-z]*((?<=[abu])o)[a-z]*/ig
+    const regifnot = /[a-z]*(o(?![abu]))[a-z]*/ig
+    const regifnot1 = /[a-z]*((?<![abu])o)[a-z]*/ig
+    console.log(strif.match(regif))
+    console.log(strif.match(regif1))
+```
