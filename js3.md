@@ -427,7 +427,98 @@ asuna.getName() // 成功访问到父类的方法
 明显的会共用内存空间（浅拷贝）
 ![image](https://user-images.githubusercontent.com/31762176/219313445-ea894ea5-2f8b-4efc-b9c9-8bda14767895.png)
 
+ > 8 js事件循环
 
+* 同步:正常的js
+* 异步:ajax等
 
+* 宏任务：正常的js setTimeout/setInterval UIrendering/UI事件 postMessage messageChannel setImmediate I/O（node）
+* 微任务：promise.then MutaionObserver Object.observe process.nextTick
 
+执行机制
+* 同步---异步
+* 宏任务（一般是同步的）-->微任务（一般是异步的，队列里的所有微任务）-->下一个宏任务（一般是异步的）
 
+**注意：**
+1. promise里正常同步执行只是then函数会加入到异步微任务里；
+2. async await中await会阻塞后面的；await fn1；fn2； fn1会正常执行，fn2会被阻塞加入到微任务队列里；
+
+详细内容
+
+* MutaionObserver
+```
+   <div id="observer-id">
+    <input type="text">
+   </div>
+  
+   // 选择需要观察变动的节点
+    const targetNode = document.getElementById('observer-id');
+
+    // 观察器的配置（需要观察什么变动）
+    const config = { attributes: true, childList: true, subtree: true };
+
+    // 当观察到变动时执行的回调函数
+    const callback = function (mutationsList, observer) {
+      // Use traditional 'for loops' for IE 11
+      for (let mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+          console.log('A child node has been added or removed.');
+        }
+        else if (mutation.type === 'attributes') {
+          console.log('The ' + mutation.attributeName + ' attribute was modified.');
+        }
+      }
+    };
+
+    // 创建一个观察器实例并传入回调函数
+    const observer = new MutationObserver(callback);
+
+    // 以上述配置开始观察目标节点
+    console.log(111)
+    observer.observe(targetNode, config);
+
+    // 之后，可停止观察
+    // observer.disconnect();
+    var elea = document.createElement('a')
+    elea.href = "https://www.baidu.com"
+    targetNode.appendChild(elea)
+
+    new Promise(function (resolve) {
+      console.log('promise')
+      resolve()
+    }).then(function () {
+      console.log('promise.then')
+    })
+    setTimeout(() => {
+      console.log('timeout')
+    }, 1)
+    console.log(222)
+
+    /*
+       111
+       promise
+       222
+       A child node has been added or removed.
+       promise.then
+       timeout
+     */
+```
+[MutationObserver参考地址](https://developer.mozilla.org/zh-CN/docs/Web/API/MutationObserver)
+
+object.observe(已废弃，用proxy对象替代)
+```
+    // proxy 同步,非异步的宏任务；
+    const handler = {
+      get: function (obj, prop) {
+        console.log('proxy-handler')
+        return prop in obj ? obj[prop] : 37;
+      }
+    };
+
+    const p = new Proxy({}, handler);
+    p.a = 1;
+    p.b = undefined;
+
+    console.log(p.a, p.b);      // 1, undefined
+    console.log('c' in p, p.c); // false, 37
+```
