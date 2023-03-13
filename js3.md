@@ -522,3 +522,30 @@ object.observe(已废弃，用proxy对象替代)
     console.log(p.a, p.b);      // 1, undefined
     console.log('c' in p, p.c); // false, 37
 ```
+
+> 9 Bom（Browser object model）
+
+[参考文档](https://vue3js.cn/interview/JavaScript/BOM.html#%E4%BA%8C%E3%80%81window)
+* window
+
+```
+<button onclick="openWin()">Open "myWindow"</button>
+<button onclick="moveWin()">Move "myWindow"</button>
+
+<script>
+let myWindow;
+
+function openWin() {
+  myWindow = window.open("", "", "width=400, height=400");
+}
+
+function moveWin() {
+  myWindow.moveBy(250, 250);
+}
+</script>
+```
+
+* location
+* navigator
+* screen
+* history
