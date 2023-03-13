@@ -549,3 +549,104 @@ function moveWin() {
 * navigator
 * screen
 * history
+
+> 10 尾递归
+```
+// 普通
+function factorial(n) {
+  if (n === 1) return 1;
+  return n * factorial(n - 1);
+}
+
+factorial(5) // 120
+
+// 尾递归
+function factorial(n, total) {
+  if (n === 1) return total;
+  return factorial(n - 1, n * total);
+}
+
+factorial(5, 1) // 120
+```
+如果n等于5，这个方法要执行5次，才返回最终的计算表达式，这样每次都要保存这个方法，就容易造成栈溢出，复杂度为O(n)
+
+如果我们使用尾递归，可以看到，每一次返回的就是一个新的函数，不带上一个函数的参数，也就不需要储存上一个函数了。尾递归只需要保存一个调用栈，复杂度 O(1)
+尾递归应用场景：
+```
+数组求和
+
+function sumArray(arr, total) {
+    if(arr.length === 1) {
+        return total
+    }
+    return sum(arr, total + arr.pop())
+}
+使用尾递归优化求斐波那契数列
+
+function factorial2 (n, start = 1, total = 1) {
+    if(n <= 2){
+        return total
+    }
+    return factorial2 (n -1, total, total + start)
+}
+数组扁平化
+
+let a = [1,2,3, [1,2,3, [1,2,3]]]
+// 变成
+let a = [1,2,3,1,2,3,1,2,3]
+// 具体实现
+function flat(arr = [], result = []) {
+    arr.forEach(v => {
+        if(Array.isArray(v)) {
+            result = result.concat(flat(v, []))
+        }else {
+            result.push(v)
+        }
+    })
+    return result
+}
+数组对象格式化
+
+let obj = {
+    a: '1',
+    b: {
+        c: '2',
+        D: {
+            E: '3'
+        }
+    }
+}
+// 转化为如下：
+let obj = {
+    a: '1',
+    b: {
+        c: '2',
+        d: {
+            e: '3'
+        }
+    }
+}
+
+// 代码实现
+function keysLower(obj) {
+    let reg = new RegExp("([A-Z]+)", "g");
+    for (let key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            let temp = obj[key];
+            if (reg.test(key.toString())) {
+                // 将修改后的属性名重新赋值给temp，并在对象obj内添加一个转换后的属性
+                temp = obj[key.replace(reg, function (result) {
+                    return result.toLowerCase()
+                })] = obj[key];
+                // 将之前大写的键属性删除
+                delete obj[key];
+            }
+            // 如果属性是对象或者数组，重新执行函数
+            if (typeof temp === 'object' || Object.prototype.toString.call(temp) === '[object Array]') {
+                keysLower(temp);
+            }
+        }
+    }
+    return obj;
+};
+```
