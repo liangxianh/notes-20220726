@@ -567,7 +567,25 @@ function factorial(n, total) {
 }
 
 factorial(5, 1) // 120
+    
+    "use strict"; 
+    // 递归 复杂度为O(n)
+    function factorial(n) {
+      if (n === 1) return 1;
+      console.trace()
+      return n * factorial(n - 1);
+    }
+    // 尾递归复杂度为O(1)
+    function factorial2(n, total) {
+      if (n === 1) return total;
+      console.trace()
+      return factorial2(n - 1, n * total);
+    }
+
+    // console.log(factorial2(100000, 1)) // Infinity
+    console.log(factorial(100000)) //  RangeError: Maximum call stack size exceeded.
 ```
+**注意使用严格模式，safri浏览器才可以看到优化的效果**
 如果n等于5，这个方法要执行5次，才返回最终的计算表达式，这样每次都要保存这个方法，就容易造成栈溢出，复杂度为O(n)
 
 如果我们使用尾递归，可以看到，每一次返回的就是一个新的函数，不带上一个函数的参数，也就不需要储存上一个函数了。尾递归只需要保存一个调用栈，复杂度 O(1)
@@ -582,6 +600,16 @@ function sumArray(arr, total) {
     return sum(arr, total + arr.pop())
 }
 使用尾递归优化求斐波那契数列
+// 非尾递归方式
+function Fibonacci (n) {
+  if ( n <= 1 ) {return 1};
+
+  return Fibonacci(n - 1) + Fibonacci(n - 2);
+}
+
+Fibonacci(10) // 89
+Fibonacci(100) // 超时
+Fibonacci(500) // 超时
 
 function factorial2 (n, start = 1, total = 1) {
     if(n <= 2){
@@ -650,3 +678,4 @@ function keysLower(obj) {
     return obj;
 };
 ```
+[尾递归与尾调用参考文献](https://segmentfault.com/a/1190000020694801)
