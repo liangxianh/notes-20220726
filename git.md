@@ -169,3 +169,16 @@ git config core.ignorecase false
 
 3.再次提交文件时就能够将更换了大小写名称的文件提交上去了
 ```
+
+### 12 发现自己的git仓库设置了git config 后因删除了.git文件无法识别--
+
+```
+利用git rm -r --cached . 后不能push了, 报错
+$ git push origin main
+fatal: unable to access 'https://github.com/liangxianh/project_practise.git/': Recv failure: Connection was reset
+需要重新设置
+git config --global user.name "liangxianh"
+在进行git push 既可
+```
+### 13 git仓库里面的文件夹若包含.git文件，整体push到远程后发现带有.git的文件夹在git仓库中不能访问
+
