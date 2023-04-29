@@ -182,3 +182,27 @@ git config --global user.name "liangxianh"
 ```
 ### 13 git仓库里面的文件夹若包含.git文件，整体push到远程后发现带有.git的文件夹在git仓库中不能访问
 
+可以通过将.git文件删除然后将git缓存清除在重新提交
+
+
+### 14 git相关配置
+配置用户名和邮箱：
+
+git config --global user.name "username"
+git config --global user.email "useremail@qq.com"
+
+清除配置中纪录的用户名和密码，下次提交代码时会让重新输入账号密码：
+
+git config --system --unset credential.helper
+
+查看git配置信息
+
+git config --list
+
+执行命令之后，再次pull或push时会缓存输入的用户名和密码：
+
+git config --global credential.helper store
+
+清除git缓存中的用户名的密码
+
+git credential-manager uninstall
